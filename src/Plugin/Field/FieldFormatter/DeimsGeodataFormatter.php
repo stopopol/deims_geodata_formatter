@@ -55,6 +55,9 @@ class DeimsGeodataFormatter extends FormatterBase {
 					$related_locations_ids = \Drupal::entityQuery('node')->condition('field_related_site',$node->id())->execute()
 					$related_locations = \Drupal\node\Entity\Node::loadMultiple($related_locations_ids);
 					
+					// subsites
+					$related_subsite_ids = \Drupal::entityQuery('node')->condition('field_subsite_name',$node->id())->execute()
+					
 					
 					foreach ($related_locations as $location) {
 						if ($location->isPublished()) {
