@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\deims_plotly_formatter\Plugin\Field\FieldFormatter;
+namespace Drupal\deims_geodata_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -67,10 +67,16 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					foreach ($related_locations as $location) {
 						// do stuff for every location
+						$location_title = $locations->get('title')->value;
+						$location_uuid = $locations->get('uuid')->value;
+						$location_geometry = $locations->get('field_boundaries')->value;
 					}
 					
 					foreach ($related_subsites as $subsite) {
-						// do stuff
+						// do stuff for every subsite
+						$subsite_title = $subsite->get('title')->value;
+						$subsite_uuid = $subsite->get('uuid')->value;
+						$subsite_geometry = $subsite->get('field_boundaries')->value;
 					}
 										
 					$elements[$delta] = [
