@@ -65,11 +65,16 @@ class DeimsGeodataFormatter extends FormatterBase {
 					$related_subsites_ids = $related_subsites_query->execute();
 					$related_subsites = \Drupal\node\Entity\Node::loadMultiple($related_subsites_ids);
 					
+					$all_related_locations = array();
+					$all_related_subsites = array();
+					
 					foreach ($related_locations as $location) {
 						// do stuff for every location
 						$location_title = $locations->get('title')->value;
 						$location_uuid = $locations->get('uuid')->value;
 						$location_geometry = $locations->get('field_boundaries')->value;
+						
+						array_push($all_related_locations, $location_title, $location_uuid, $location_geometry);
 					}
 					
 					foreach ($related_subsites as $subsite) {
@@ -77,6 +82,8 @@ class DeimsGeodataFormatter extends FormatterBase {
 						$subsite_title = $subsite->get('title')->value;
 						$subsite_uuid = $subsite->get('uuid')->value;
 						$subsite_geometry = $subsite->get('field_boundaries')->value;
+						
+						array_push($all_related_subsites, $subsite_title, $subsite_uuid, $subsite_geometry);
 					}
 										
 					$elements[$delta] = [
