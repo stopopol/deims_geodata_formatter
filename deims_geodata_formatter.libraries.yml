@@ -1,0 +1,8 @@
+deims-geodata-formatter:
+  version: 1.0
+  js:
+    js/deims_geodata_formatter.js: {}
+  dependencies:
+    - deims_geodata_formatter/plotly
+    - core/jquery
+    - core/drupalSettings
