@@ -49,25 +49,29 @@ class DeimsGeodataFormatter extends FormatterBase {
 			if (!empty($nodes)) {
 				foreach ($nodes as $node) {
 					$coordinates = $node->get('field_coordinates')->value;
-					$boundaries = $node->get('field_boundaries');
+					$boundaries = $node->get('field_boundaries')->value;
 			
 					// load all nodes that have referenced this node
-					$related_locations_ids = \Drupal::entityQuery('node')->condition('field_related_site',$node->id())->execute()
-					$related_locations = \Drupal\node\Entity\Node::loadMultiple($related_locations_ids);
+					$related_locations_query = \Drupal::entityQuery('node');
+					$related_locations_query->condition('field_related_site',$node->id());
+					$related_locations_query->condition('type', 'observation_location');
+					$related_locations_ids = $related_locations_query->execute();
+					$related_locations = \Drupal\node\Entity\Node::loadMultiple($related_locations_ids);					
 					
 					// subsites
-					$related_subsite_ids = \Drupal::entityQuery('node')->condition('field_subsite_name',$node->id())->execute()
-					
+					$related_subsites_query = \Drupal::entityQuery('node');
+					$related_subsites_query->condition('field_subsite_name',$node->id());
+					$related_subsites_query->condition('type', 'observation_location');
+					$related_subsites_ids = $related_subsites_query->execute();
+					$related_subsites = \Drupal\node\Entity\Node::loadMultiple($related_subsites_ids);
 					
 					foreach ($related_locations as $location) {
-						if ($location->isPublished()) {
-							$location_information = [];
-							$content_type = $node->bundle();
-							
-							if ($content_type == 'observation_location') {
-								continue;
-							}
-						}
+						// do stuff for every location
+					}
+					
+					foreach ($related_subsites as $subsite) {
+						// do stuff
+					}
 										
 					$elements[$delta] = [
 						'#markup' => '<div id="site_map_' . $record_uuid . '"></div>',
