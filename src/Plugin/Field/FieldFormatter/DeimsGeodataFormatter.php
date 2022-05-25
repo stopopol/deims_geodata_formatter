@@ -70,9 +70,9 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					foreach ($related_locations as $location) {
 						// do stuff for every location
-						$location_title = $locations->get('title')->value;
-						$location_uuid = $locations->get('uuid')->value;
-						$location_geometry = $locations->get('field_boundaries')->value;
+						$location_title = $location->get('title')->value;
+						$location_uuid = $location->get('uuid')->value;
+						$location_geometry = $location->get('field_boundaries')->value;
 						
 						array_push($all_related_locations, $location_title, $location_uuid, $location_geometry);
 					}
@@ -87,8 +87,10 @@ class DeimsGeodataFormatter extends FormatterBase {
 					}
 					
 					
+					$output_test = json_encode(array_merge($all_related_locations, $all_related_subsites));
+					
 					$elements[$delta] = [
-						'#markup' => '<div id="site_map_' . json_encode(array_merge($all_related_locations, $all_related_subsites)) . '"></div>',
+						'#markup' => '<div id="site_map">' . $output_test . '</div>',
 						/*'#attached' => array(
 							'library'=> array('deims_geodata_formatter/deims-geodata-formatter'),
 							'drupalSettings' => array(
