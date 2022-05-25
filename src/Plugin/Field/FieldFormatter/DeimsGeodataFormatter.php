@@ -51,7 +51,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 					$coordinates = $node->get('field_coordinates')->value;
 					$boundaries = $node->get('field_boundaries')->value;
 			
-					// load all nodes that have referenced this node
+					// load all locations that have referenced this node
 					$related_locations_query = \Drupal::entityQuery('node');
 					$related_locations_query->condition('field_related_site',$node->id());
 					$related_locations_query->condition('type', 'observation_location');
@@ -85,10 +85,11 @@ class DeimsGeodataFormatter extends FormatterBase {
 						
 						array_push($all_related_subsites, $subsite_title, $subsite_uuid, $subsite_geometry);
 					}
-										
+					
+					
 					$elements[$delta] = [
-						'#markup' => '<div id="site_map_' . $record_uuid . '"></div>',
-						'#attached' => array(
+						'#markup' => '<div id="site_map_' . json_encode(array_merge($all_related_locations, $all_related_subsites)) . '"></div>',
+						/*'#attached' => array(
 							'library'=> array('deims_geodata_formatter/deims-geodata-formatter'),
 							'drupalSettings' => array(
 								'deims_geodata_formatter' => array(
@@ -101,7 +102,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 									),
 								)
 							),
-						),
+						), */
 						
 					];
 				}
