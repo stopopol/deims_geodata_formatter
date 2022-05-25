@@ -3,6 +3,13 @@ deims-geodata-formatter:
   js:
     js/deims_geodata_formatter.js: {}
   dependencies:
-    - deims_geodata_formatter/plotly
+    - deims_geodata_formatter/leaflet
     - core/jquery
     - core/drupalSettings
+    
+leaflet: 
+    version: 1.8
+    js:
+      js/leaflet.js: {}
+    css:
+      css/leaflet.css: {}
