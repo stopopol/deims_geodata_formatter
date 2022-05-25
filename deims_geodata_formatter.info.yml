@@ -1,4 +1,4 @@
-name: DEIMS-SDR Geodata Formatters
+name: DEIMS-SDR Geodata Formatter
 description: Renders all geographic information for a site 
 package: DEIMS-SDR
 type: module
