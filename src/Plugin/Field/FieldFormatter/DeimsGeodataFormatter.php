@@ -73,8 +73,12 @@ class DeimsGeodataFormatter extends FormatterBase {
 						$location_title = $location->get('title')->value;
 						$location_uuid = $location->get('uuid')->value;
 						$location_geometry = $location->get('field_boundaries')->value;
+						foreach ($location->get('field_location_type')->referencedEntities() as $location_entity) {
+							// should be changed to the URI as soon as the envthes is ready
+							$location_type = $location_entity->label();
+						}
 						
-						array_push($all_related_locations, $location_title, $location_uuid, $location_geometry);
+						array_push($all_related_locations, $location_title, $location_uuid, $location_geometry, $location_type);
 					}
 					
 					foreach ($related_subsites as $subsite) {
