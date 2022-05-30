@@ -92,6 +92,8 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					$output_test = json_encode(array_merge($all_related_locations, $all_related_subsites));
 					
+					
+					// setting css class is not working
 					$elements[$delta] = [
 						'#markup' => '<div id="site_record_map" class="map-height"></div>' . $output_test ,
 						'#attached' => array(
