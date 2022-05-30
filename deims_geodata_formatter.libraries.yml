@@ -1,15 +1,19 @@
 deims-geodata-formatter:
-  version: 1.0
-  js:
-    js/deims_geodata_formatter.js: {}
-  dependencies:
-    - deims_geodata_formatter/leaflet
-    - core/jquery
-    - core/drupalSettings
+    version: 1.0
+    js:
+      js/deims_geodata_formatter.js: {}
+    css:
+      css/map.css: {}
+    dependencies:
+      - deims_geodata_formatter/leaflet
+      - core/jquery
+      - core/once
+      - core/drupalSettings
     
 leaflet: 
     version: 1.8
-    js:
-      js/leaflet.js: {}
     css:
       css/leaflet.css: {}
+    js:
+      js/leaflet.js: {}
+    

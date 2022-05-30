@@ -90,25 +90,21 @@ class DeimsGeodataFormatter extends FormatterBase {
 						array_push($all_related_subsites, $subsite_title, $subsite_uuid, $subsite_geometry);
 					}
 					
-					
 					$output_test = json_encode(array_merge($all_related_locations, $all_related_subsites));
 					
 					$elements[$delta] = [
-						'#markup' => '<div id="site_map">' . $output_test . '</div>',
-						/*'#attached' => array(
+						'#markup' => '<div id="site_record_map" class="map-height"></div>' . $output_test ,
+						'#attached' => array(
 							'library'=> array('deims_geodata_formatter/deims-geodata-formatter'),
 							'drupalSettings' => array(
 								'deims_geodata_formatter' => array(
 									'data_object' => array(
-										'deimsid' => $record_uuid,
-										'annual_avg_air_temperature' => $annual_avg_air_temperature,
-										'air_temperature_values' => $air_temperature_values,
-										'air_precipitation_values' => $precipitation_values,
-										'reference_period' => $reference_period,
+										'related_locations' => $all_related_locations,
+										'related_subsites' => $all_related_subsites,
 									),
 								)
 							),
-						), */
+						),
 						
 					];
 				}
