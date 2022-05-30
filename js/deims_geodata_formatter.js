@@ -8,11 +8,19 @@
 				
 				var element = document.getElementById("site_record_map");
 				element.style.height = "400px";
+				element.style.width = "100%";
 				
 				var map = L.map('site_record_map', {
 					center: [51.505, -0.09],
 					zoom: 13
 				});
+				
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					maxZoom: 19,
+					attribution: '© OpenStreetMap'
+				}).addTo(map);
+				
+				map.invalidateSize();
 			});
 			
 		}
