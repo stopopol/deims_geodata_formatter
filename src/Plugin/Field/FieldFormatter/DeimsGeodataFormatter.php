@@ -112,7 +112,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					// setting css class is not working
 					$elements[$delta] = [
-						'#markup' => '<div id="site_record_map" class="map-height" style="height: 400px;"></div>' ,
+						'#markup' => '<div id="site_record_map' . '" class="map-height" style="height: 400px;"></div>' ,
 						'#attached' => array(
 							'library'=> array('deims_geodata_formatter/deims-geodata-formatter'),
 							'drupalSettings' => array(

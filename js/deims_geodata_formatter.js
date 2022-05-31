@@ -3,6 +3,7 @@
 		attach: function (context, settings) {
 
 			var input_data = drupalSettings.deims_geodata_formatter.data_object;
+
 			var coordinates = input_data["coordinates"]
 			var boundaries = input_data["boundaries"]
 			var locations = input_data["related_locations"]
@@ -13,6 +14,7 @@
 				
 				var element = document.getElementById("site_record_map");
 				element.style.height = "400px";
+				element.style.minWidth = "150px";
 				
 				var map = L.map('site_record_map', {
 					center: [51.505, -0.09],
