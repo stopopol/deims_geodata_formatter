@@ -23,6 +23,11 @@
 				}).addTo(map);
 				
 				map.invalidateSize();
+				
+				
+				// add features to map
+				//L.geoJSON(geojsonFeature).addTo(map);
+				
 			});
 			
 		}

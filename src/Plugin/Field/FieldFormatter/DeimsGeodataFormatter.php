@@ -4,6 +4,7 @@ namespace Drupal\deims_geodata_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\geofield\GeoPHP\GeoPHPInterface;
 
 /**
  * Plugin implementation of the 'DeimsGeodataFormatter' formatter.
@@ -72,7 +73,9 @@ class DeimsGeodataFormatter extends FormatterBase {
 						// do stuff for every location
 						$location_title = $location->get('title')->value;
 						$location_uuid = $location->get('uuid')->value;
-						$location_geometry = $location->get('field_boundaries')->value;
+						//$location_geometry = $location->get('field_boundaries')->value;
+						//$location_geometry = $location->get('field_boundaries');
+						$location_geometry = json_decode(\Drupal::service('geofield.geophp')->load($location->get('field_boundaries')->value)->out('json'));
 						foreach ($location->get('field_location_type')->referencedEntities() as $location_entity) {
 							// should be changed to the URI as soon as the envthes is ready
 							$location_type = $location_entity->label();
@@ -85,7 +88,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 						// do stuff for every subsite
 						$subsite_title = $subsite->get('title')->value;
 						$subsite_uuid = $subsite->get('uuid')->value;
-						$subsite_geometry = $subsite->get('field_boundaries')->value;
+						$subsite_geometry = json_decode(\Drupal::service('geofield.geophp')->load($subsite->get('field_boundaries')->value)->out('json'));
 						
 						array_push($all_related_subsites, $subsite_title, $subsite_uuid, $subsite_geometry);
 					}
@@ -97,10 +100,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 					$elements[$delta] = [
 						'#markup' => '<div id="site_record_map" class="map-height" style="height: 400px;"></div>' . $output_test ,
 						'#attached' => array(
-							'library'=> array(
-								'deims_geodata_formatter/leaflet-base',
-								'deims_geodata_formatter/deims-geodata-formatter'
-							),
+							'library'=> array('deims_geodata_formatter/deims-geodata-formatter'),
 							'drupalSettings' => array(
 								'deims_geodata_formatter' => array(
 									'data_object' => array(
