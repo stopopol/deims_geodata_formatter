@@ -34,8 +34,7 @@
 					"opacity": 0.65
 				};
 				
-				console.log("boundaries:");
-				console.log(boundaries);
+		
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
 					map.fitBounds(boundaries_layer.getBounds());
@@ -64,11 +63,15 @@
 						fillOpacity: 0.8
 					};
 					
-					L.geoJSON(coordinates, {
+					var coordinates_layer = L.geoJSON(coordinates, {
 						pointToLayer: function (feature, latlng) {
 							return L.circleMarker(latlng, geojsonMarkerOptions);
 						}
 					}).addTo(map);
+					
+					if (!boundaries) {
+						map.fitBounds(coordinates_layer.getBounds());
+					}
 					
 					
 				}		
