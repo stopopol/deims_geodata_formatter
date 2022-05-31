@@ -3,8 +3,13 @@
 		attach: function (context, settings) {
 
 			var input_data = drupalSettings.deims_geodata_formatter.data_object;
+			var coordinates = input_data["coordinates"]
+			var boundaries = input_data["boundaries"]
 			var locations = input_data["related_locations"]
 			var subsites = input_data["related_subsites"]
+			
+			
+			
 			
 			$(context).find("#site_record_map").once("#site_record_map").each(function () {
 				
@@ -16,6 +21,7 @@
 					zoom: 13
 				});
 				
+				var layerControl = L.control.layers().addTo(map);
 				
 				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 					maxZoom: 19,
@@ -24,19 +30,25 @@
 				
 				map.invalidateSize();
 				
+				var coordinates_layer = L.geoJSON().addTo(map);
+				var boundaries_layer = L.geoJSON().addTo(map);
+				var locations_layer = L.geoJSON().addTo(map);
 				var subsites_layer = L.geoJSON().addTo(map);
 				
-				// subsites
+				
 				for (let i = 0; i < subsites.length; i++) {
-					subsites_layer.addData(subsites[2]);
+					subsites_layer.addData(subsites[i][2]);
 				}
 				
-				map.fitBounds(subsites_layer.getBounds());
-				// var group = new L.featureGroup([marker1, marker2, marker3]);
-				// map.fitBounds(group.getBounds());
+				for (let i = 0; i < locations.length; i++) {
+					locations_layer.addData(locations[i][2]);
+				}
 				
-				// add features to map
-				//L.geoJSON(geojsonFeature).addTo(map);
+				if (boundaries) {
+					boundaries_layer.addData(boundaries);
+					map.fitBounds(boundaries_layer.getBounds());
+				}
+				
 				
 			});
 			

@@ -49,8 +49,10 @@ class DeimsGeodataFormatter extends FormatterBase {
 
 			if (!empty($nodes)) {
 				foreach ($nodes as $node) {
-					$coordinates = $node->get('field_coordinates')->value;
-					$boundaries = $node->get('field_boundaries')->value;
+					
+					$coordinates = json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_coordinates')->value)->out('json'));
+					$boundaries = json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_boundaries')->value)->out('json'));
+					
 			
 					// load all locations that have referenced this node
 					$related_locations_query = \Drupal::entityQuery('node');
@@ -81,7 +83,12 @@ class DeimsGeodataFormatter extends FormatterBase {
 							$location_type = $location_entity->label();
 						}
 						
-						array_push($all_related_locations, $location_title, $location_uuid, $location_geometry, $location_type);
+						if (!$location->get('field_boundaries')->isEmpty()) {
+							$location_geometry = json_decode(\Drupal::service('geofield.geophp')->load($location->get('field_boundaries')->value)->out('json'));
+							array_push($all_related_locations, array($location_title, $location_uuid, $location_geometry, $location_type));
+						}
+						
+						
 					}
 					
 					foreach ($related_subsites as $subsite) {
@@ -90,7 +97,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 						$subsite_uuid = $subsite->get('uuid')->value;
 						if (!$subsite->get('field_boundaries')->isEmpty()) {
 							$subsite_geometry = json_decode(\Drupal::service('geofield.geophp')->load($subsite->get('field_boundaries')->value)->out('json'));
-							array_push($all_related_subsites, $subsite_title, $subsite_uuid, $subsite_geometry);
+							array_push($all_related_subsites, array($subsite_title, $subsite_uuid, $subsite_geometry));
 						}
 						
 					}
@@ -100,12 +107,14 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					// setting css class is not working
 					$elements[$delta] = [
-						'#markup' => '<div id="site_record_map" class="map-height" style="height: 400px;"></div>' . $output_test ,
+						'#markup' => '<div id="site_record_map" class="map-height" style="height: 400px;"></div>' ,
 						'#attached' => array(
 							'library'=> array('deims_geodata_formatter/deims-geodata-formatter'),
 							'drupalSettings' => array(
 								'deims_geodata_formatter' => array(
 									'data_object' => array(
+										'coordinates' => $coordinates,
+										'boundaries' => $boundaries,
 										'related_locations' => $all_related_locations,
 										'related_subsites' => $all_related_subsites,
 									),
