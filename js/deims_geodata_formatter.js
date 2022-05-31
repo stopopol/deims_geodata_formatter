@@ -8,9 +8,7 @@
 			var locations = input_data["related_locations"]
 			var subsites = input_data["related_subsites"]
 			
-			
-			
-			
+
 			$(context).find("#site_record_map").once("#site_record_map").each(function () {
 				
 				var element = document.getElementById("site_record_map");
@@ -30,12 +28,27 @@
 				
 				map.invalidateSize();
 				
+				var boundaries_style = {
+					"color": "#ff7800",
+					"weight": 5,
+					"opacity": 0.65
+				};
+				
+				
+				if (boundaries) {
+					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
+					map.fitBounds(boundaries_layer.getBounds());
+				}
+				
+				
+				
 				var coordinates_layer = L.geoJSON().addTo(map);
-				var boundaries_layer = L.geoJSON().addTo(map);
+				
 				var locations_layer = L.geoJSON().addTo(map);
 				var subsites_layer = L.geoJSON().addTo(map);
 				
 				
+		
 				for (let i = 0; i < subsites.length; i++) {
 					subsites_layer.addData(subsites[i][2]);
 				}
@@ -44,9 +57,14 @@
 					locations_layer.addData(locations[i][2]);
 				}
 				
-				if (boundaries) {
-					boundaries_layer.addData(boundaries);
-					map.fitBounds(boundaries_layer.getBounds());
+				if (coordinates) {
+					coordinates_layer.addData(coordinates);
+				}
+				
+				
+				
+				else {
+					
 				}
 				
 				

@@ -75,8 +75,6 @@ class DeimsGeodataFormatter extends FormatterBase {
 						// do stuff for every location
 						$location_title = $location->get('title')->value;
 						$location_uuid = $location->get('uuid')->value;
-						//$location_geometry = $location->get('field_boundaries')->value;
-						//$location_geometry = $location->get('field_boundaries');
 						$location_geometry = json_decode(\Drupal::service('geofield.geophp')->load($location->get('field_boundaries')->value)->out('json'));
 						foreach ($location->get('field_location_type')->referencedEntities() as $location_entity) {
 							// should be changed to the URI as soon as the envthes is ready
@@ -100,10 +98,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 							array_push($all_related_subsites, array($subsite_title, $subsite_uuid, $subsite_geometry));
 						}
 						
-					}
-					
-					$output_test = json_encode(array_merge($all_related_locations, $all_related_subsites));
-					
+					}					
 					
 					// setting css class is not working
 					$elements[$delta] = [
