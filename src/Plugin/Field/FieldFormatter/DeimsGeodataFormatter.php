@@ -60,8 +60,8 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					// subsites
 					$related_subsites_query = \Drupal::entityQuery('node');
-					$related_subsites_query->condition('field_subsite_name',$node->id());
-					$related_subsites_query->condition('type', 'observation_location');
+					$related_subsites_query->condition('field_parent_site',$node->id());
+					$related_subsites_query->condition('type', 'site');
 					$related_subsites_ids = $related_subsites_query->execute();
 					$related_subsites = \Drupal\node\Entity\Node::loadMultiple($related_subsites_ids);
 					
