@@ -50,10 +50,20 @@ class DeimsGeodataFormatter extends FormatterBase {
 			if (!empty($nodes)) {
 				foreach ($nodes as $node) {
 					
-					$coordinates = json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_coordinates')->value)->out('json'));
-					$boundaries = json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_boundaries')->value)->out('json'));
+					if (!$node->get('field_coordinates')->isEmpty()) {
+						$coordinates = json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_coordinates')->value)->out('json'));
+					}
+					else {
+						$coordinates = null;
+					}
 					
-			
+					if (!$node->get('field_boundaries')->isEmpty()) {
+						$boundaries = json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_boundaries')->value)->out('json'));
+					}
+					else {
+						$boundaries = null;
+					}
+					
 					// load all locations that have referenced this node
 					$related_locations_query = \Drupal::entityQuery('node');
 					$related_locations_query->condition('field_related_site',$node->id());
