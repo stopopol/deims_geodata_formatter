@@ -24,11 +24,16 @@
 				
 				map.invalidateSize();
 				
+				var subsites_layer = L.geoJSON().addTo(map);
+				
+				// subsites
 				for (let i = 0; i < subsites.length; i++) {
-					console.log(subsites[2]);
-				  L.geoJSON(subsites[2]).addTo(map);
+					subsites_layer.addData(subsites[2]);
 				}
 				
+				map.fitBounds(subsites_layer.getBounds());
+				// var group = new L.featureGroup([marker1, marker2, marker3]);
+				// map.fitBounds(group.getBounds());
 				
 				// add features to map
 				//L.geoJSON(geojsonFeature).addTo(map);
