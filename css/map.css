@@ -1,9 +1,4 @@
 .map-height { 
-	height: 180px !important;
-	min-height: 180px;
-}
-
-#site_record_map {
-	height: 180px !important;
+	height: 180px;
 	min-height: 180px;
 }
