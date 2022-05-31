@@ -18,7 +18,8 @@
 				
 				var map = L.map('site_record_map', {
 					center: [51.505, -0.09],
-					zoom: 5
+					zoom: 5,
+					layers: []
 				});
 				var layerControl = L.control.layers().addTo(map);
 				
@@ -35,24 +36,26 @@
 					"opacity": 0.65
 				};
 
-				var overlayMaps = {};
-				
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
 					map.fitBounds(boundaries_layer.getBounds());
 					layerControl.addOverlay(boundaries_layer, "Boundaries");
 				}
 				
-				
-				var locations_layer = L.geoJSON().addTo(map);
-				var subsites_layer = L.geoJSON().addTo(map);
-				
-				for (let i = 0; i < subsites.length; i++) {
-					subsites_layer.addData(subsites[i][2]);
+				if (subsites.length > 0) {
+					var subsites_layer = L.geoJSON(null,{style: boundaries_style}).addTo(map);
+					for (let i = 0; i < subsites.length; i++) {
+						subsites_layer.addData(subsites[i][2]);
+					}
+					layerControl.addOverlay(subsites_layer, "Subsite(s)");
 				}
 				
-				for (let i = 0; i < locations.length; i++) {
-					locations_layer.addData(locations[i][2]);
+				if (locations.length > 0) {
+					var locations_layer = L.geoJSON().addTo(map);
+					for (let i = 0; i < locations.length; i++) {
+						locations_layer.addData(locations[i][2]);
+					}
+					layerControl.addOverlay(locations_layer, "Related Location(s)");
 				}
 				
 				if (coordinates) {
@@ -66,25 +69,20 @@
 						fillOpacity: 0.8
 					};
 					
-					var coordinates_layer = L.geoJSON(coordinates, {
-						pointToLayer: function (feature, latlng) {
-							return L.circleMarker(latlng, geojsonMarkerOptions);
-						}
-					}).addTo(map);
-					
-					layerControl.addOverlay(coordinates_layer, "Coordinates");
+					var coordinates_layer = L.geoJSON(coordinates);
+					layerControl.addOverlay(coordinates_layer, "Centroid or Representative Coordinates");
 					
 					if (!boundaries) {
 						map.fitBounds(coordinates_layer.getBounds());
+						coordinates_layer.addTo(map);
+						
 					}
-					
 					
 				}
 
-
-				
-
-				
+				// to do:
+				// styling
+				// popups on click
 				
 			});
 			
