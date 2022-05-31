@@ -5,20 +5,16 @@ deims-geodata-formatter:
     css:
       css/map.css: {}
     dependencies:
-      - deims_geodata_formatter/leaflet-base
       - deims_geodata_formatter/leaflet
       - core/jquery
       - core/once
       - core/drupalSettings
- 
-leaflet-base: 
-    version: 1.8
-    css:
-      css/leaflet.css: {}
- 
+
 leaflet: 
     version: 1.8
+    css: 
+      component:
+        css/leaflet.css: {}
     js:
       js/leaflet.js: {}
-    dependencies:
-      - deims_geodata_formatter/leaflet-base
+
