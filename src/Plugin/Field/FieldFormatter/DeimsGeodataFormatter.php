@@ -88,9 +88,11 @@ class DeimsGeodataFormatter extends FormatterBase {
 						// do stuff for every subsite
 						$subsite_title = $subsite->get('title')->value;
 						$subsite_uuid = $subsite->get('uuid')->value;
-						$subsite_geometry = json_decode(\Drupal::service('geofield.geophp')->load($subsite->get('field_boundaries')->value)->out('json'));
+						if (!$subsite->get('field_boundaries')->isEmpty()) {
+							$subsite_geometry = json_decode(\Drupal::service('geofield.geophp')->load($subsite->get('field_boundaries')->value)->out('json'));
+							array_push($all_related_subsites, $subsite_title, $subsite_uuid, $subsite_geometry);
+						}
 						
-						array_push($all_related_subsites, $subsite_title, $subsite_uuid, $subsite_geometry);
 					}
 					
 					$output_test = json_encode(array_merge($all_related_locations, $all_related_subsites));

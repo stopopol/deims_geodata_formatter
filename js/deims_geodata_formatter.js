@@ -24,6 +24,11 @@
 				
 				map.invalidateSize();
 				
+				for (let i = 0; i < subsites.length; i++) {
+					console.log(subsites[2]);
+				  L.geoJSON(subsites[2]).addTo(map);
+				}
+				
 				
 				// add features to map
 				//L.geoJSON(geojsonFeature).addTo(map);
