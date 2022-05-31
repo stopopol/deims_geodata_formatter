@@ -18,7 +18,6 @@
 					center: [51.505, -0.09],
 					zoom: 5
 				});
-				
 				var layerControl = L.control.layers().addTo(map);
 				
 				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -33,11 +32,13 @@
 					"weight": 5,
 					"opacity": 0.65
 				};
+
+				var overlayMaps = {};
 				
-		
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
 					map.fitBounds(boundaries_layer.getBounds());
+					layerControl.addOverlay(boundaries_layer, "Boundaries");
 				}
 				
 				
@@ -69,12 +70,19 @@
 						}
 					}).addTo(map);
 					
+					layerControl.addOverlay(coordinates_layer, "Coordinates");
+					
 					if (!boundaries) {
 						map.fitBounds(coordinates_layer.getBounds());
 					}
 					
 					
-				}		
+				}
+
+
+				
+
+				
 				
 			});
 			
