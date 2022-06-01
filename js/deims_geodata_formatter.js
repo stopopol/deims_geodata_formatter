@@ -153,8 +153,8 @@
 					}
 					
 					if (e_shape_check) {
-						e_shape_check.addTo(map);
-						layerControl.addOverlay(e_shape_check, "Remote Sensing Analysis Area(s)");
+						e_shape_layer.addTo(map);
+						layerControl.addOverlay(e_shape_layer, "Remote Sensing Analysis Area(s)");
 					}
 					
 					if (other_check) {
