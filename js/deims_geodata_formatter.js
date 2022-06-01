@@ -51,39 +51,105 @@
 				}
 				
 				if (locations.length > 0) {
+					
+					var air_shed_check = false;
+					var equipment_location_check = false;
+					var hydrological_catchment_check = false;
+					var model_area_check = false;
+					var sampling_area_check = false;
+					var socio_ecological_check = false;
+					var e_shape_check = false;
+					var other_check = false;
+					
+					var air_shed_layer = L.geoJSON(null,{style: boundaries_style});
+					var equipment_location_layer = L.geoJSON(null,{style: boundaries_style});
+					var hydrological_catchment_layer = L.geoJSON(null,{style: boundaries_style});
+					var model_area_layer = L.geoJSON(null,{style: boundaries_style});
+					var sampling_area_layer = L.geoJSON(null,{style: boundaries_style});
+					var socio_ecological_layer = L.geoJSON(null,{style: boundaries_style});
+					var e_shape_layer = L.geoJSON(null,{style: boundaries_style});
+					var other_layer = L.geoJSON(null,{style: boundaries_style});
+					
 					var locations_layer = L.geoJSON().addTo(map);
 					for (let i = 0; i < locations.length; i++) {
-						locations_layer.addData(locations[i][2]);
 						
 						switch(locations[i][3]) {
 							case "Air Shed":
-								// code block
+								air_shed_check = true;
+								air_shed_layer.addData(locations[i][2]);
 								break;
 							case "Equipment Location":
+								equipment_location_check = true;
+								equipment_location_layer.addData(locations[i][2]);
 								break;
 							case "Hydrological Catchment":
-								// code block
+								hydrological_catchment_check = true;
+								hydrological_catchment_layer.addData(locations[i][2]);
 								break;
 							case "Model Area":
-								// code block
+								model_area_check = true;
+								model_area_layer.addData(locations[i][2]);
 								break;
 							case "Sampling Area":
-								// code block
+								sampling_area_check = true;
+								sampling_area_layer.addData(locations[i][2]);
 								break;
 							case "Socio-ecological reference area":
-								// code block
+								socio_ecological_check = true;
+								socio_ecological_layer.addData(locations[i][2]);
 								break;
 							case "e-shape":
-								// code block
+								e_shape_check = true;
+								e_shape_layer.addData(locations[i][2]);
 								break;
 							case "not applicable":
-								// code block
 							default:
-								// code block
+								other_check = true;
+								other_layer.addData(locations[i][2]);
 						}
 						
 					}
-					layerControl.addOverlay(locations_layer, "Related Location(s)");
+					
+					if (air_shed_check) {
+						air_shed_layer.addTo(map);
+						layerControl.addOverlay(air_shed_layer, "Air Shed");
+					}
+					
+					if (equipment_location_check) {
+						equipment_location_layer.addTo(map);
+						layerControl.addOverlay(equipment_location_layer, "Equipment Location(s)");
+					}
+					
+					if (hydrological_catchment_check) {
+						hydrological_catchment_layer.addTo(map);
+						layerControl.addOverlay(hydrological_catchment_layer, "Hydrological Catchment Area");
+					}
+					
+					if (model_area_check) {
+						model_area_layer.addTo(map);
+						layerControl.addOverlay(model_area_layer, "Equipment Location(s)");
+					}
+					
+					if (sampling_area_check) {
+						sampling_area_layer.addTo(map);
+						layerControl.addOverlay(sampling_area_layer, "Sampling Area(s)");
+					}
+					
+					if (socio_ecological_check) {
+						socio_ecological_layer.addTo(map);
+						layerControl.addOverlay(socio_ecological_layer, "Socio-ecological Reference Area(s)");
+					}
+					
+					if (e_shape_check) {
+						e_shape_check.addTo(map);
+						layerControl.addOverlay(e_shape_check, "Remote Sensing Analysis Area(s)");
+					}
+					
+					if (other_check) {
+						other_layer.addTo(map);
+						layerControl.addOverlay(other_layer, "Other (non-classified) Location(s)");
+					}
+					
 				}
 				
 				if (coordinates) {

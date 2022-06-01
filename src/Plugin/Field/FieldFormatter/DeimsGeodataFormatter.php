@@ -86,6 +86,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 						$location_title = $location->get('title')->value;
 						$location_uuid = $location->get('uuid')->value;
 						$location_geometry = json_decode(\Drupal::service('geofield.geophp')->load($location->get('field_boundaries')->value)->out('json'));
+						$location_type = null;
 						foreach ($location->get('field_location_type')->referencedEntities() as $location_entity) {
 							// should be changed to the URI as soon as the envthes is ready
 							$location_type = $location_entity->label();
