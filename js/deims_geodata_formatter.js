@@ -38,8 +38,6 @@
 					"fillOpacity": 0.45
 				};
 				
-				// orange
-				// mit Strichen gefüllt?
 				var subsites_style = {
 					"color": "#b15928",
 					"weight": stroke_width,
@@ -88,9 +86,7 @@
 				if (subsites.length > 0) {
 					var subsites_layer = L.geoJSON(null,{style: subsites_style}).addTo(map);
 					for (let i = 0; i < subsites.length; i++) {
-						var subsite_feature = subsites_layer.addData(subsites[i][2]);
-						var popup_text =  '<a href="/' + subsites[i][1] + '">' + subsites[i][0] + '</a><br>Type: Subsite';
-						subsite_feature.bindPopup(popup_text);
+						subsites_layer.addData(subsites[i][2]);
 					}
 					layerControl.addOverlay(subsites_layer, "Subsite(s)");
 				}
@@ -117,10 +113,7 @@
 					
 					for (let i = 0; i < locations.length; i++) {
 						
-						var popup_text = '<a href="/locations/' + locations[i][1] + '">' + locations[i][0] + '</a>';
-						if (locations[i][3]) {
-							popup_text += '<br>Type: ' + locations[i][3];
-						}
+						var popup_text = '<a href="/locations/' + locations[i][1] + '">' + locations[i][0] + '</a><br>Type: ' + locations[i][3];
 						
 						switch(locations[i][3]) {
 							
@@ -229,6 +222,7 @@
 				
 				// to do:
 				// styling
+				// pop ups for subsites
 				
 			});
 			
