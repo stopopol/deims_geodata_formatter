@@ -41,29 +41,25 @@
 				var subsites_style = {
 					"color": "#b15928",
 					"weight": stroke_width,
-					"opacity": 0.85,
 					"fill": false
 				};
 				
+				// should be the role model for other styles
 				var sampling_area_style = {
 					"color": "#336600",
 					"weight": stroke_width,
-					"opacity": 0.65,
-					"fill": false
+					"fillColor": "#ffffff00"
 				};
 				
 				var equipment_location_style = {
 					"color": "#999999",
 					"weight": stroke_width,
-					"opacity": 0.65,
-					"fill": false
 				};
 				
 				var eshape_style = {
 					"color": "#cc0066",
 					"weight": stroke_width,
 					"dashArray": '5',
-					"fill": false
 				};
 				
 				var hydrological_catchment_style = {
@@ -76,7 +72,6 @@
 				var other_style = {
 					"color": "#cab2d6",
 					"weight": stroke_width,
-					"opacity": 0.85,
 					"fill": false
 				};
 
@@ -114,42 +109,52 @@
 					var e_shape_layer = L.geoJSON(null,{style: eshape_style});
 					var other_layer = L.geoJSON(null,{style: other_style});
 					
-					var locations_layer = L.geoJSON().addTo(map);
 					for (let i = 0; i < locations.length; i++) {
 						
+						var popup_text = '<a href="https://www.deims.org/locations/' + locations[i][1] + '">' + locations[i][0] + '</a><br>Type: ' + locations[i][3];
+						
 						switch(locations[i][3]) {
+							
 							case "Air Shed":
 								air_shed_check = true;
-								air_shed_layer.addData(locations[i][2]);
+								var current_feature = air_shed_layer.addData(locations[i][2]);
+								current_feature.bindPopup(popup_text);
 								break;
 							case "Equipment Location":
 								equipment_location_check = true;
-								equipment_location_layer.addData(locations[i][2]);
+								var current_feature = equipment_location_layer.addData(locations[i][2]);
+								current_feature.bindPopup(popup_text);
 								break;
 							case "Hydrological Catchment":
 								hydrological_catchment_check = true;
-								hydrological_catchment_layer.addData(locations[i][2]);
+								var current_feature = hydrological_catchment_layer.addData(locations[i][2]);
+								current_feature.bindPopup(popup_text);
 								break;
 							case "Model Area":
 								model_area_check = true;
-								model_area_layer.addData(locations[i][2]);
+								var current_feature = model_area_layer.addData(locations[i][2]);
+								current_feature.bindPopup(popup_text);
 								break;
 							case "Sampling Area":
 								sampling_area_check = true;
-								sampling_area_layer.addData(locations[i][2]);
+								var current_feature = sampling_area_layer.addData(locations[i][2]);
+								current_feature.bindPopup(popup_text);
 								break;
 							case "Socio-ecological reference area":
 								socio_ecological_check = true;
-								socio_ecological_layer.addData(locations[i][2]);
+								var current_feature = socio_ecological_layer.addData(locations[i][2]);
+								current_feature.bindPopup(popup_text);
 								break;
 							case "e-shape":
 								e_shape_check = true;
-								e_shape_layer.addData(locations[i][2]);
+								var current_feature = e_shape_layer.addData(locations[i][2]);
+								current_feature.bindPopup(popup_text);
 								break;
 							case "not applicable":
 							default:
 								other_check = true;
-								other_layer.addData(locations[i][2]);
+								var current_feature = other_layer.addData(locations[i][2]);
+								current_feature.bindPopup(popup_text);
 						}
 						
 					}
