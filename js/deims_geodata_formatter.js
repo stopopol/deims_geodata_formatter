@@ -39,7 +39,7 @@
 				};
 				
 				var subsites_style = {
-					"color": "#a65628",
+					"color": "#b15928",
 					"weight": stroke_width,
 					"opacity": 0.85,
 					"fill": false
@@ -59,10 +59,24 @@
 					"fill": false
 				};
 				
-				var e_eshape_style = {
+				var eshape_style = {
 					"color": "#cc0066",
 					"weight": stroke_width,
 					"dashArray": '5',
+					"fill": false
+				};
+				
+				var hydrological_catchment_style = {
+					"color": "#3399FF",
+					"weight": stroke_width,
+					"dashArray": '5',
+					"fill": false
+				};
+				
+				var other_style = {
+					"color": "#cab2d6",
+					"weight": stroke_width,
+					"opacity": 0.85,
 					"fill": false
 				};
 
@@ -93,12 +107,12 @@
 					
 					var air_shed_layer = L.geoJSON(null,{style: boundaries_style});
 					var equipment_location_layer = L.geoJSON(null,{style: equipment_location_style});
-					var hydrological_catchment_layer = L.geoJSON(null,{style: boundaries_style});
+					var hydrological_catchment_layer = L.geoJSON(null,{style: hydrological_catchment_style});
 					var model_area_layer = L.geoJSON(null,{style: boundaries_style});
 					var sampling_area_layer = L.geoJSON(null,{style: sampling_area_style});
 					var socio_ecological_layer = L.geoJSON(null,{style: boundaries_style});
-					var e_shape_layer = L.geoJSON(null,{style: e_eshape_style});
-					var other_layer = L.geoJSON(null,{style: boundaries_style});
+					var e_shape_layer = L.geoJSON(null,{style: eshape_style});
+					var other_layer = L.geoJSON(null,{style: other_style});
 					
 					var locations_layer = L.geoJSON().addTo(map);
 					for (let i = 0; i < locations.length; i++) {
@@ -195,6 +209,10 @@
 					
 				}
 
+				if (boundaries) {
+					boundaries_layer.bringToBack();
+				}
+				
 				// to do:
 				// styling
 				// popups on click
