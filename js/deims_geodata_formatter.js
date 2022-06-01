@@ -37,13 +37,13 @@
 				};
 				
 				var sampling_area_style = {
-					"color": "#ff7800",
+					"color": "#336600",
 					"weight": 5,
 					"opacity": 0.65
 				};
 				
 				var equipment_location_style = {
-					"color": "#ff7800",
+					"color": "#999999",
 					"weight": 5,
 					"opacity": 0.65
 				};
@@ -74,10 +74,10 @@
 					var other_check = false;
 					
 					var air_shed_layer = L.geoJSON(null,{style: boundaries_style});
-					var equipment_location_layer = L.geoJSON(null,{style: boundaries_style});
+					var equipment_location_layer = L.geoJSON(null,{style: equipment_location_style});
 					var hydrological_catchment_layer = L.geoJSON(null,{style: boundaries_style});
 					var model_area_layer = L.geoJSON(null,{style: boundaries_style});
-					var sampling_area_layer = L.geoJSON(null,{style: boundaries_style});
+					var sampling_area_layer = L.geoJSON(null,{style: sampling_area_style});
 					var socio_ecological_layer = L.geoJSON(null,{style: boundaries_style});
 					var e_shape_layer = L.geoJSON(null,{style: boundaries_style});
 					var other_layer = L.geoJSON(null,{style: boundaries_style});
