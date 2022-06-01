@@ -41,7 +41,7 @@
 				var subsites_style = {
 					"color": "#b15928",
 					"weight": stroke_width,
-					"fill": false
+					"fillColor": "#ffffff00"
 				};
 				
 				// should be the role model for other styles
@@ -54,25 +54,27 @@
 				var equipment_location_style = {
 					"color": "#999999",
 					"weight": stroke_width,
+					"fillColor": "#ffffff00"
 				};
 				
 				var eshape_style = {
 					"color": "#cc0066",
 					"weight": stroke_width,
 					"dashArray": '5',
+					"fillColor": "#ffffff00"
 				};
 				
 				var hydrological_catchment_style = {
 					"color": "#3399FF",
 					"weight": stroke_width,
 					"dashArray": '5',
-					"fill": false
+					"fillColor": "#ffffff00"
 				};
 				
 				var other_style = {
 					"color": "#cab2d6",
 					"weight": stroke_width,
-					"fill": false
+					"fillColor": "#ffffff00"
 				};
 
 				if (boundaries) {
@@ -220,7 +222,7 @@
 				
 				// to do:
 				// styling
-				// popups on click
+				// pop ups for subsites
 				
 			});
 			
