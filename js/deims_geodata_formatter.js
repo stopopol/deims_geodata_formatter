@@ -35,7 +35,7 @@
 				var boundaries_style = {
 					"color": "#ff7800",
 					"weight": stroke_width,
-					"opacity": 0.65
+					"fillOpacity": 0.45
 				};
 				
 				var subsites_style = {
