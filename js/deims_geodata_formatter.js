@@ -17,7 +17,7 @@
 				element.style.minWidth = "150px";
 				
 				var map = L.map('site_record_map', {
-					center: [51.505, -0.09],
+					center: [0, 0],
 					zoom: 5,
 					layers: []
 				});
@@ -73,9 +73,8 @@
 					layerControl.addOverlay(coordinates_layer, "Centroid or Representative Coordinates");
 					
 					if (!boundaries) {
-						map.fitBounds(coordinates_layer.getBounds());
 						coordinates_layer.addTo(map);
-						
+						map.flyTo(L.latLng(coordinates['coordinates']['1'], coordinates['coordinates']['0']), 5)
 					}
 					
 				}
@@ -83,6 +82,15 @@
 				// to do:
 				// styling
 				// popups on click
+				// differentiate location types
+				// Air Shed
+				// Equipment Location
+				// Hydrological Catchment
+				// Model Area
+				// Sampling Area
+				// Socio-ecological reference area
+				// e-shape
+				// not applicable
 				
 			});
 			
