@@ -30,29 +30,39 @@
 				
 				map.invalidateSize();
 				
+				var stroke_width = 3;
+				
 				var boundaries_style = {
 					"color": "#ff7800",
-					"weight": 5,
+					"weight": stroke_width,
 					"opacity": 0.65
+				};
+				
+				var subsites_style = {
+					"color": "#a65628",
+					"weight": stroke_width,
+					"opacity": 0.85,
+					"fill": false
 				};
 				
 				var sampling_area_style = {
 					"color": "#336600",
-					"weight": 5,
+					"weight": stroke_width,
 					"opacity": 0.65,
 					"fill": false
 				};
 				
 				var equipment_location_style = {
 					"color": "#999999",
-					"weight": 5,
+					"weight": stroke_width,
 					"opacity": 0.65,
 					"fill": false
 				};
 				
 				var e_eshape_style = {
 					"color": "#cc0066",
-					"weight": 5,
+					"weight": stroke_width,
+					"dashArray": '5',
 					"fill": false
 				};
 
@@ -63,7 +73,7 @@
 				}
 				
 				if (subsites.length > 0) {
-					var subsites_layer = L.geoJSON(null,{style: boundaries_style}).addTo(map);
+					var subsites_layer = L.geoJSON(null,{style: subsites_style}).addTo(map);
 					for (let i = 0; i < subsites.length; i++) {
 						subsites_layer.addData(subsites[i][2]);
 					}
