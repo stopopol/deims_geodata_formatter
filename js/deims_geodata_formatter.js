@@ -39,13 +39,21 @@
 				var sampling_area_style = {
 					"color": "#336600",
 					"weight": 5,
-					"opacity": 0.65
+					"opacity": 0.65,
+					"fill": false
 				};
 				
 				var equipment_location_style = {
 					"color": "#999999",
 					"weight": 5,
-					"opacity": 0.65
+					"opacity": 0.65,
+					"fill": false
+				};
+				
+				var e_eshape_style = {
+					"color": "#cc0066",
+					"weight": 5,
+					"fill": false
 				};
 
 				if (boundaries) {
@@ -79,7 +87,7 @@
 					var model_area_layer = L.geoJSON(null,{style: boundaries_style});
 					var sampling_area_layer = L.geoJSON(null,{style: sampling_area_style});
 					var socio_ecological_layer = L.geoJSON(null,{style: boundaries_style});
-					var e_shape_layer = L.geoJSON(null,{style: boundaries_style});
+					var e_shape_layer = L.geoJSON(null,{style: e_eshape_style});
 					var other_layer = L.geoJSON(null,{style: boundaries_style});
 					
 					var locations_layer = L.geoJSON().addTo(map);
