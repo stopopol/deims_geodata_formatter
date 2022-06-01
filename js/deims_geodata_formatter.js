@@ -153,16 +153,7 @@
 				}
 				
 				if (coordinates) {
-					
-					var geojsonMarkerOptions = {
-						radius: 8,
-						fillColor: "#ff7800",
-						color: "#000",
-						weight: 1,
-						opacity: 1,
-						fillOpacity: 0.8
-					};
-					
+						
 					var coordinates_layer = L.geoJSON(coordinates);
 					layerControl.addOverlay(coordinates_layer, "Centroid or Representative Coordinates");
 					
@@ -176,7 +167,7 @@
 				// to do:
 				// styling
 				// popups on click
-				// differentiate location types
+				// case without geometries
 				
 			});
 			
