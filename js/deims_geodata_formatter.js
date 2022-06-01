@@ -171,7 +171,8 @@
 					}
 					
 					if (e_shape_check) {
-						e_shape_layer.addTo(map);
+						// turned off by default
+						//e_shape_layer.addTo(map);
 						layerControl.addOverlay(e_shape_layer, "Remote Sensing Analysis Area(s)");
 					}
 					
