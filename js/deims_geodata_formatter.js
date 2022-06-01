@@ -54,6 +54,34 @@
 					var locations_layer = L.geoJSON().addTo(map);
 					for (let i = 0; i < locations.length; i++) {
 						locations_layer.addData(locations[i][2]);
+						
+						switch(locations[i][3]) {
+							case "Air Shed":
+								// code block
+								break;
+							case "Equipment Location":
+								break;
+							case "Hydrological Catchment":
+								// code block
+								break;
+							case "Model Area":
+								// code block
+								break;
+							case "Sampling Area":
+								// code block
+								break;
+							case "Socio-ecological reference area":
+								// code block
+								break;
+							case "e-shape":
+								// code block
+								break;
+							case "not applicable":
+								// code block
+							default:
+								// code block
+						}
+						
 					}
 					layerControl.addOverlay(locations_layer, "Related Location(s)");
 				}
@@ -83,14 +111,6 @@
 				// styling
 				// popups on click
 				// differentiate location types
-				// Air Shed
-				// Equipment Location
-				// Hydrological Catchment
-				// Model Area
-				// Sampling Area
-				// Socio-ecological reference area
-				// e-shape
-				// not applicable
 				
 			});
 			
