@@ -97,7 +97,6 @@ class DeimsGeodataFormatter extends FormatterBase {
 							array_push($all_related_locations, array($location_title, $location_uuid, $location_geometry, $location_type));
 						}
 						
-						
 					}
 					
 					foreach ($related_subsites as $subsite) {
@@ -111,30 +110,38 @@ class DeimsGeodataFormatter extends FormatterBase {
 						
 					}					
 					
-					// setting css class is not working
-					$elements[$delta] = [
-						'#markup' => '<div id="site_record_map" class="map-height" style="height: 400px;"></div>' ,
-						'#attached' => array(
-							'library'=> array('deims_geodata_formatter/deims-geodata-formatter'),
-							'drupalSettings' => array(
-								'deims_geodata_formatter' => array(
-									'data_object' => array(
-										'coordinates' => $coordinates,
-										'boundaries' => $boundaries,
-										'related_locations' => $all_related_locations,
-										'related_subsites' => $all_related_subsites,
-									),
-								)
+					// there should always at least be coordinates but just in case check for geometries
+					if ($coordinates != null || $boundaries != null || !empty($related_locations) || !empty($related_subsites)) {
+						// setting css class is not working
+						$elements[$delta] = [
+							'#markup' => '<div id="site_record_map" class="map-height" style="height: 400px;"></div>' ,
+							'#attached' => array(
+								'library'=> array('deims_geodata_formatter/deims-geodata-formatter'),
+								'drupalSettings' => array(
+									'deims_geodata_formatter' => array(
+										'data_object' => array(
+											'coordinates' => $coordinates,
+											'boundaries' => $boundaries,
+											'related_locations' => $all_related_locations,
+											'related_subsites' => $all_related_subsites,
+										),
+									)
+								),
 							),
-						),
-						
-					];
+							
+						]; 
+					 }
+					
+					else {
+						return $elements;
+					}
+					
 				}
 			}
 		}
 
 		return $elements;
-
+		
     }
 
 }

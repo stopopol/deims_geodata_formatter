@@ -35,6 +35,18 @@
 					"weight": 5,
 					"opacity": 0.65
 				};
+				
+				var sampling_area_style = {
+					"color": "#ff7800",
+					"weight": 5,
+					"opacity": 0.65
+				};
+				
+				var equipment_location_style = {
+					"color": "#ff7800",
+					"weight": 5,
+					"opacity": 0.65
+				};
 
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
@@ -167,7 +179,6 @@
 				// to do:
 				// styling
 				// popups on click
-				// case without geometries
 				
 			});
 			
