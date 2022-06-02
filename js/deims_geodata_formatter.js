@@ -157,7 +157,6 @@
 									air_shed_layer.addTo(map);
 									layerControl.addOverlay(air_shed_layer, "Air Shed");
 								};
-								
 								air_shed_layer.addData(geojsonFeature);
 								break;
 							case "Equipment Location":
@@ -232,7 +231,6 @@
 				
 				// to do:
 				// styling
-				// bug with pop ops of subsites
 				
 			});
 			
