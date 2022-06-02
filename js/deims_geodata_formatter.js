@@ -34,7 +34,7 @@
 				
 				var boundaries_style = {
 					"color": "#ff7800",
-					"weight": stroke_width,
+					"weight": stroke_width+1,
 					"fillOpacity": 0.45
 				};
 				
@@ -46,8 +46,14 @@
 					"fillColor": "#ffffff00"
 				};
 				
-				// should be the role model for other styles
+				// could be the role model for other styles
 				var sampling_area_style = {
+					"color": "#336600",
+					"weight": stroke_width,
+					"fillColor": "#ffffff00"
+				};
+				
+				var airshed_style = {
 					"color": "#336600",
 					"weight": stroke_width,
 					"fillColor": "#ffffff00"
@@ -78,6 +84,18 @@
 					"weight": stroke_width,
 					"fillColor": "#ffffff00"
 				};
+				
+				var model_area_style = {
+					"color": "#cab2d6",
+					"weight": stroke_width,
+					"fillColor": "#ffffff00"
+				};
+
+				var socio_ecological_style = {
+					"color": "#cab2d6",
+					"weight": stroke_width,
+					"fillColor": "#ffffff00"
+				};
 
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
@@ -98,12 +116,12 @@
 				
 				if (locations.length > 0) {
 									
-					var air_shed_layer = L.geoJSON(null,{style: boundaries_style});
+					var air_shed_layer = L.geoJSON(null,{style: airshed_style});
 					var equipment_location_layer = L.geoJSON(null,{style: equipment_location_style});
 					var hydrological_catchment_layer = L.geoJSON(null,{style: hydrological_catchment_style});
-					var model_area_layer = L.geoJSON(null,{style: boundaries_style});
+					var model_area_layer = L.geoJSON(null,{style: model_area_style});
 					var sampling_area_layer = L.geoJSON(null,{style: sampling_area_style});
-					var socio_ecological_layer = L.geoJSON(null,{style: boundaries_style});
+					var socio_ecological_layer = L.geoJSON(null,{style: socio_ecological_style});
 					var e_shape_layer = L.geoJSON(null,{style: eshape_style});
 					var other_layer = L.geoJSON(null,{style: other_style});
 					
