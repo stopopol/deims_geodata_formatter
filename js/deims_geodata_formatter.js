@@ -9,7 +9,6 @@
 			var locations = input_data["related_locations"]
 			var subsites = input_data["related_subsites"]
 			
-
 			$(context).find("#site_record_map").once("#site_record_map").each(function () {
 				
 				var element = document.getElementById("site_record_map");
@@ -27,6 +26,13 @@
 					maxZoom: 19,
 					attribution: '© OpenStreetMap'
 				}).addTo(map);
+				
+				function onEachFeature(feature, layer) {
+					// does this feature have a property named popupContent?
+					if (feature.properties && feature.properties.popupContent) {
+						layer.bindPopup(feature.properties.popupContent);
+					}
+				}
 				
 				map.invalidateSize();
 				
@@ -104,26 +110,30 @@
 				}
 				
 				if (subsites.length > 0) {
-					var subsites_layer = L.geoJSON(null,{style: subsites_style}).addTo(map);
-					for (let i = 0; i < subsites.length; i++) {
-						
-						var popup_text =  '<a href="/' + subsites[i][1] + '">' + subsites[i][0] + '</a><br>Type: Subsite';
-						subsites_layer.addData(subsites[i][2]).bindPopup(popup_text);
-						
-					}
+					var subsites_layer = L.geoJSON(null,{style: subsites_style, onEachFeature: onEachFeature}).addTo(map);
 					layerControl.addOverlay(subsites_layer, "Subsite(s)");
+					for (let i = 0; i < subsites.length; i++) {
+						var geojsonFeature = {
+							"type": "Feature",
+							"properties": {
+								"popupContent": '<a href="/' + subsites[i][1] + '">' + subsites[i][0] + '</a><br>Type: Subsite',
+							},
+							"geometry": subsites[i][2]
+						};
+						subsites_layer.addData(geojsonFeature);
+					}
 				}
 				
 				if (locations.length > 0) {
 									
-					var air_shed_layer = L.geoJSON(null,{style: airshed_style});
-					var equipment_location_layer = L.geoJSON(null,{style: equipment_location_style});
-					var hydrological_catchment_layer = L.geoJSON(null,{style: hydrological_catchment_style});
-					var model_area_layer = L.geoJSON(null,{style: model_area_style});
-					var sampling_area_layer = L.geoJSON(null,{style: sampling_area_style});
-					var socio_ecological_layer = L.geoJSON(null,{style: socio_ecological_style});
-					var e_shape_layer = L.geoJSON(null,{style: eshape_style});
-					var other_layer = L.geoJSON(null,{style: other_style});
+					var air_shed_layer = L.geoJSON(null,{style: airshed_style, onEachFeature: onEachFeature});
+					var equipment_location_layer = L.geoJSON(null,{style: equipment_location_style, onEachFeature: onEachFeature});
+					var hydrological_catchment_layer = L.geoJSON(null,{style: hydrological_catchment_style, onEachFeature: onEachFeature});
+					var model_area_layer = L.geoJSON(null,{style: model_area_style, onEachFeature: onEachFeature});
+					var sampling_area_layer = L.geoJSON(null,{style: sampling_area_style, onEachFeature: onEachFeature});
+					var socio_ecological_layer = L.geoJSON(null,{style: socio_ecological_style, onEachFeature: onEachFeature});
+					var e_shape_layer = L.geoJSON(null,{style: eshape_style, onEachFeature: onEachFeature});
+					var other_layer = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
 					
 					for (let i = 0; i < locations.length; i++) {
 						
@@ -132,6 +142,14 @@
 							popup_text += '<br>Type: ' + locations[i][3];
 						}
 						
+						var geojsonFeature = {
+							"type": "Feature",
+							"properties": {
+								"popupContent": popup_text
+							},
+							"geometry": locations[i][2]
+						};
+						
 						switch(locations[i][3]) {
 							
 							case "Air Shed":
@@ -139,48 +157,49 @@
 									air_shed_layer.addTo(map);
 									layerControl.addOverlay(air_shed_layer, "Air Shed");
 								};
-								air_shed_layer.addData(locations[i][2]).bindPopup(popup_text);
+								
+								air_shed_layer.addData(geojsonFeature);
 								break;
 							case "Equipment Location":
 								if (map.hasLayer(equipment_location_layer) == false) {
 									equipment_location_layer.addTo(map);
 									layerControl.addOverlay(equipment_location_layer, "Equipment Location(s)");
 								}
-								equipment_location_layer.addData(locations[i][2]).bindPopup(popup_text);
+								equipment_location_layer.addData(geojsonFeature);
 								break;
 							case "Hydrological Catchment":
 								if (map.hasLayer(hydrological_catchment_layer) == false) {
 									hydrological_catchment_layer.addTo(map);
 									layerControl.addOverlay(hydrological_catchment_layer, "Hydrological Catchment Area");
 								}
-								hydrological_catchment_layer.addData(locations[i][2]).bindPopup(popup_text);
+								hydrological_catchment_layer.addData(geojsonFeature);
 								break;
 							case "Model Area":
 								if (map.hasLayer(model_area_layer) == false) {
 									model_area_layer.addTo(map);
 									layerControl.addOverlay(model_area_layer, "Model Area(s)");
 								}
-								model_area_layer.addData(locations[i][2]).bindPopup(popup_text);
+								model_area_layer.addData(geojsonFeature);
 								break;
 							case "Sampling Area":
 								if (map.hasLayer(sampling_area_layer) == false) {
 									sampling_area_layer.addTo(map);
 									layerControl.addOverlay(sampling_area_layer, "Sampling Area(s)");
 								}
-								sampling_area_layer.addData(locations[i][2]).bindPopup(popup_text);
+								sampling_area_layer.addData(geojsonFeature);
 								break;
 							case "Socio-ecological reference area":
 								if (map.hasLayer(socio_ecological_layer) == false) {
 									socio_ecological_layer.addTo(map);
 									layerControl.addOverlay(socio_ecological_layer, "Socio-ecological Reference Area(s)");
 								}
-								socio_ecological_layer.addData(locations[i][2]).bindPopup(popup_text);
+								socio_ecological_layer.addData(geojsonFeature);
 								break;
 							case "e-shape":
 								if (map.hasLayer(e_shape_layer) == false) {
 									layerControl.addOverlay(e_shape_layer, "Remote Sensing Analysis Area(s)");
 								}
-								e_shape_layer.addData(locations[i][2]).bindPopup(popup_text);
+								e_shape_layer.addData(geojsonFeature);
 								break;
 							case "not applicable":
 							default:
@@ -188,7 +207,7 @@
 									other_layer.addTo(map);
 									layerControl.addOverlay(other_layer, "Other (non-classified) Location(s)");
 								}
-								other_layer.addData(locations[i][2]).bindPopup(popup_text);
+								other_layer.addData(geojsonFeature);
 						}
 						
 					}
