@@ -15,8 +15,15 @@
 				element.style.height = "400px";
 				element.style.minWidth = "150px";
 				
+				if (coordinates) {
+					var center = [coordinates['coordinates']['1'], coordinates['coordinates']['0']];
+				}
+				else {
+					var center = [0, 0];
+				}
+				
 				var map = L.map('site_record_map', {
-					center: [0, 0],
+					center: center,
 					zoom: 5,
 					layers: []
 				});
@@ -220,7 +227,6 @@
 					
 					if (!boundaries) {
 						coordinates_layer.addTo(map);
-						map.flyTo(L.latLng(coordinates['coordinates']['1'], coordinates['coordinates']['0']), 5)
 					}
 					
 				}
