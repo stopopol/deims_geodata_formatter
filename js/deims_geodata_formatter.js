@@ -48,13 +48,14 @@
 				var dasharray_width = "7";
 				
 				var boundaries_style = {
-					"color": "#ff7800",
-					"weight": stroke_width+1,
-					"fillOpacity": 0.45
+					"color": "#FFFFFF",
+					"fillColor": "#ff9933",
+					"fillOpacity": 0.75,
+					"weight": stroke_width,
 				};
 				
 				var subsites_style = {
-					"color": "#ff7800",
+					"color": "#ff9933",
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
