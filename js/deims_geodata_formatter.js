@@ -144,8 +144,6 @@
 					var socio_ecological_layer = L.geoJSON(null,{style: socio_ecological_style, onEachFeature: onEachFeature});
 					var e_shape_layer = L.geoJSON(null,{style: eshape_style, onEachFeature: onEachFeature});
 					var other_layer = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
-					var halo_layer = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
-					var halo_layer_dashed = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
 					
 					for (let i = 0; i < locations.length; i++) {
 						
