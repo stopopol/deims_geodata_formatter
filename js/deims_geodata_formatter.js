@@ -239,7 +239,8 @@
 				}
 				
 				// to do:
-				// styling
+				// legend
+				// <svg><line x1="0" y1="20" x2="20" y2="0" style="stroke:#cc0066;stroke-width:2;"stroke-dasharray='4' /></svg>
 				
 			});
 			
