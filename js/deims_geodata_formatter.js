@@ -24,6 +24,7 @@
 				
 				var map = L.map('site_record_map', {
 					center: center,
+					attributionControl: false,
 					zoom: 5,
 					layers: []
 				});
@@ -44,22 +45,30 @@
 				map.invalidateSize();
 				
 				var stroke_width = 3;
+				var dasharray_width = "7";
 				
 				var boundaries_style = {
 					"color": "#ff7800",
 					"weight": stroke_width+1,
 					"fillOpacity": 0.45
-				};
+				};	
 				
 				// orange
 				// mit Strichen gefüllt?
 				var subsites_style = {
-					"color": "#b15928",
+					"color": "#ff7800",
 					"weight": stroke_width,
+					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
-				// could be the role model for other styles
+				var white_halo_style = {
+					"color": "#FFFFFF",
+					"weight": stroke_width+1,
+					"dashArray": dasharray_width,
+					"fillColor": "#ffffff00"
+				};
+				
 				var sampling_area_style = {
 					"color": "#336600",
 					"weight": stroke_width,
@@ -81,14 +90,15 @@
 				var eshape_style = {
 					"color": "#cc0066",
 					"weight": stroke_width,
-					"dashArray": '5',
+					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
+				
 				
 				var hydrological_catchment_style = {
 					"color": "#3399FF",
 					"weight": stroke_width,
-					"dashArray": '5',
+					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
@@ -109,7 +119,7 @@
 					"weight": stroke_width,
 					"fillColor": "#ffffff00"
 				};
-
+				
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
 					map.fitBounds(boundaries_layer.getBounds());
