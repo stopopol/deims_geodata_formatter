@@ -55,7 +55,7 @@
 				};
 				
 				var subsites_style = {
-					"color": "#ff9933",
+					"color": "#ff6633",
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
