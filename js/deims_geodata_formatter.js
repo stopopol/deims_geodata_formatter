@@ -116,7 +116,7 @@
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
 					map.fitBounds(boundaries_layer.getBounds());
-					layerControl.addOverlay(boundaries_layer, "Boundaries");
+					//layerControl.addOverlay(boundaries_layer, "Boundaries");
 				}
 				
 				if (subsites.length > 0) {
