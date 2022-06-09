@@ -51,33 +51,26 @@
 					"color": "#ff7800",
 					"weight": stroke_width+1,
 					"fillOpacity": 0.45
-				};	
+				};
 				
-				// orange
-				// mit Strichen gefüllt?
 				var subsites_style = {
 					"color": "#ff7800",
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
-				
-				var white_halo_style = {
-					"color": "#FFFFFF",
-					"weight": stroke_width+1,
+							
+				var sampling_area_style = {
+					"color": "#336600",
+					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
-				var sampling_area_style = {
-					"color": "#336600",
-					"weight": stroke_width,
-					"fillColor": "#ffffff00"
-				};
-				
 				var airshed_style = {
-					"color": "#336600",
+					"color": "#6699cc",
 					"weight": stroke_width,
+					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
@@ -94,7 +87,6 @@
 					"fillColor": "#ffffff00"
 				};
 				
-				
 				var hydrological_catchment_style = {
 					"color": "#3399FF",
 					"weight": stroke_width,
@@ -103,19 +95,19 @@
 				};
 				
 				var other_style = {
-					"color": "#cab2d6",
+					"color": "#996633",
 					"weight": stroke_width,
 					"fillColor": "#ffffff00"
 				};
 				
 				var model_area_style = {
-					"color": "#cab2d6",
+					"color": "#666699",
 					"weight": stroke_width,
 					"fillColor": "#ffffff00"
 				};
 
 				var socio_ecological_style = {
-					"color": "#cab2d6",
+					"color": "#cc3333",
 					"weight": stroke_width,
 					"fillColor": "#ffffff00"
 				};
@@ -151,6 +143,8 @@
 					var socio_ecological_layer = L.geoJSON(null,{style: socio_ecological_style, onEachFeature: onEachFeature});
 					var e_shape_layer = L.geoJSON(null,{style: eshape_style, onEachFeature: onEachFeature});
 					var other_layer = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
+					var halo_layer = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
+					var halo_layer_dashed = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
 					
 					for (let i = 0; i < locations.length; i++) {
 						
