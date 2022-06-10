@@ -209,7 +209,7 @@
 								break;
 							case "e-shape":
 								if (map.hasLayer(e_shape_layer) == false) {
-									layerControl.addOverlay(e_shape_layer, "Remote Sensing Analysis Area(s)");
+									layerControl.addOverlay(e_shape_layer, '<svg height="20" width="160"><line x1="0" y1="20" x2="20" y2="0" style="stroke:#cc0066;stroke-width:2;" stroke-dasharray="4" />  <text x="30" y="15" fill="black" font-size="smaller">Remote Sensing Analysis Area</text></svg>');
 								}
 								e_shape_layer.addData(geojsonFeature);
 								break;
@@ -244,7 +244,7 @@
 				// to do:
 				// white halo for line features?
 				// legend
-				// <svg><line x1="0" y1="20" x2="20" y2="0" style="stroke:#cc0066;stroke-width:2;"stroke-dasharray='4' />  <text x="30" y="15" fill="black" font-size="smaller">Remote Sensing Analysis Area</text></svg>
+				// 
 				
 			});
 			
