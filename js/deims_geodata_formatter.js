@@ -268,8 +268,6 @@
 				
 				// to do:
 				// white halo for line features?
-				// legend
-				// 
 				
 			});
 			
