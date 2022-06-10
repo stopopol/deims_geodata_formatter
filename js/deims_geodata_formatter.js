@@ -98,18 +98,21 @@
 				var other_style = {
 					"color": "#996633",
 					"weight": stroke_width,
+					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
 				var model_area_style = {
 					"color": "#666699",
 					"weight": stroke_width,
+					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 
 				var socio_ecological_style = {
 					"color": "#cc3333",
 					"weight": stroke_width,
+					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
@@ -239,8 +242,9 @@
 				}
 				
 				// to do:
+				// white halo for line features?
 				// legend
-				// <svg><line x1="0" y1="20" x2="20" y2="0" style="stroke:#cc0066;stroke-width:2;"stroke-dasharray='4' /></svg>
+				// <svg><line x1="0" y1="20" x2="20" y2="0" style="stroke:#cc0066;stroke-width:2;"stroke-dasharray='4' />  <text x="30" y="15" fill="black" font-size="smaller">Remote Sensing Analysis Area</text></svg>
 				
 			});
 			
