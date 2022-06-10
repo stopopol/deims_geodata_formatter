@@ -47,70 +47,86 @@
 				var stroke_width = 3;
 				var dasharray_width = "7";
 				
+				var eshape_colour = "#cc0066";
+				var hydrological_colour = "#3399FF";
+				var boundaries_colour = "#FFFFFF";
+				var subsites_colour = "#ff6633";
+				var sampling_colour = "#336600";
+				var airshed_colour = "#6699cc";
+				var equipment_colour = "#999999";
+				var other_colour = "#996633";
+				var model_colour = "#666699";
+				var socioecology_colour = "#cc3333";
+						
+				function print_legend_symbol(colour_code, label, stroke_dasharray_value) {
+					return '<svg height="20" width="160"><line x1="0" y1="20" x2="20" y2="0" style="stroke:' + colour_code + ';stroke-width:' + stroke_width + ' ;" stroke-dasharray="' + stroke_dasharray_value + '" />  <text x="25" y="15" fill="black" font-size="smaller">' + label + '</text></svg>';
+				}
+				
+				
 				var boundaries_style = {
-					"color": "#FFFFFF",
+					"color": boundaries_colour,
 					"fillColor": "#ff9933",
 					"fillOpacity": 0.75,
 					"weight": stroke_width,
 				};
 				
 				var subsites_style = {
-					"color": "#ff6633",
+					"color": subsites_colour,
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 							
 				var sampling_area_style = {
-					"color": "#336600",
+					"color": sampling_colour,
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
 				var airshed_style = {
-					"color": "#6699cc",
+					"color": airshed_colour,
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
 				var equipment_location_style = {
-					"color": "#999999",
+					"color": equipment_colour,
 					"weight": stroke_width,
 					"fillColor": "#ffffff00"
 				};
 				
 				var eshape_style = {
-					"color": "#cc0066",
+					"color": eshape_colour,
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
 				var hydrological_catchment_style = {
-					"color": "#3399FF",
+					"color": hydrological_colour,
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
 				var other_style = {
-					"color": "#996633",
+					"color": other_colour,
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 				
 				var model_area_style = {
-					"color": "#666699",
+					"color": model_colour,
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
 				};
 
 				var socio_ecological_style = {
-					"color": "#cc3333",
+					"color": socioecology_colour,
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
@@ -124,7 +140,7 @@
 				
 				if (subsites.length > 0) {
 					var subsites_layer = L.geoJSON(null,{style: subsites_style, onEachFeature: onEachFeature}).addTo(map);
-					layerControl.addOverlay(subsites_layer, "Subsite(s)");
+					layerControl.addOverlay(subsites_layer, print_legend_symbol(subsites_colour, "Subsite(s)", dasharray_width));
 					for (let i = 0; i < subsites.length; i++) {
 						var geojsonFeature = {
 							"type": "Feature",
@@ -168,21 +184,21 @@
 							case "Air Shed":
 								if (map.hasLayer(air_shed_layer) == false) {
 									air_shed_layer.addTo(map);
-									layerControl.addOverlay(air_shed_layer, "Air Shed");
+									layerControl.addOverlay(air_shed_layer, print_legend_symbol(airshed_colour, "Airsehd Area(s)", dasharray_width));
 								};
 								air_shed_layer.addData(geojsonFeature);
 								break;
 							case "Equipment Location":
 								if (map.hasLayer(equipment_location_layer) == false) {
 									equipment_location_layer.addTo(map);
-									layerControl.addOverlay(equipment_location_layer, "Equipment Location(s)");
+									layerControl.addOverlay(equipment_location_layer, print_legend_symbol(equipment_colour, "Equipment Area(s)", 0));
 								}
 								equipment_location_layer.addData(geojsonFeature);
 								break;
 							case "Hydrological Catchment":
 								if (map.hasLayer(hydrological_catchment_layer) == false) {
 									hydrological_catchment_layer.addTo(map);
-									layerControl.addOverlay(hydrological_catchment_layer, "Hydrological Catchment Area");
+									layerControl.addOverlay(hydrological_catchment_layer, print_legend_symbol(hydrological_colour, "Hydrological Catchment Area(s)", dasharray_width));
 								}
 								hydrological_catchment_layer.addData(geojsonFeature);
 								break;
@@ -196,20 +212,21 @@
 							case "Sampling Area":
 								if (map.hasLayer(sampling_area_layer) == false) {
 									sampling_area_layer.addTo(map);
-									layerControl.addOverlay(sampling_area_layer, "Sampling Area(s)");
+									layerControl.addOverlay(sampling_area_layer, print_legend_symbol(sampling_colour, "Sampling Area(s)", dasharray_width));
 								}
 								sampling_area_layer.addData(geojsonFeature);
 								break;
 							case "Socio-ecological reference area":
 								if (map.hasLayer(socio_ecological_layer) == false) {
 									socio_ecological_layer.addTo(map);
-									layerControl.addOverlay(socio_ecological_layer, "Socio-ecological Reference Area(s)");
+									layerControl.addOverlay(socio_ecological_layer, print_legend_symbol(socioecology_colour, "Socio-ecological Reference Area(s)", dasharray_width));
 								}
 								socio_ecological_layer.addData(geojsonFeature);
 								break;
 							case "e-shape":
 								if (map.hasLayer(e_shape_layer) == false) {
-									layerControl.addOverlay(e_shape_layer, '<svg height="20" width="160"><line x1="0" y1="20" x2="20" y2="0" style="stroke:#cc0066;stroke-width:2;" stroke-dasharray="4" />  <text x="30" y="15" fill="black" font-size="smaller">Remote Sensing Analysis Area</text></svg>');
+									e_shape_layer.addTo(map);
+									layerControl.addOverlay(e_shape_layer, print_legend_symbol(eshape_colour, "Remote Sensing Analysis Area(s)", dasharray_width));
 								}
 								e_shape_layer.addData(geojsonFeature);
 								break;
@@ -217,11 +234,19 @@
 							default:
 								if (map.hasLayer(other_layer) == false) {
 									other_layer.addTo(map);
-									layerControl.addOverlay(other_layer, "Other (non-classified) Location(s)");
+									layerControl.addOverlay(other_layer, print_legend_symbol(other_colour, "Other (unclassified) Location(s)", dasharray_width));
 								}
 								other_layer.addData(geojsonFeature);
 						}
 						
+					}
+					
+					// turn off particular layers by default
+					if (map.hasLayer(e_shape_layer) == true) {
+						map.removeLayer(e_shape_layer);
+					}
+					if (map.hasLayer(other_layer) == true) {
+						map.removeLayer(other_layer);
 					}
 					
 				}
