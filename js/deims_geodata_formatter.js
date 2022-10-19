@@ -184,7 +184,7 @@
 							case "http://vocabs.lter-europe.net/elter_cl/10490":
 								if (map.hasLayer(air_shed_layer) == false) {
 									air_shed_layer.addTo(map);
-									layerControl.addOverlay(air_shed_layer, print_legend_symbol(airshed_colour, "Airsehd Area(s)", dasharray_width));
+									layerControl.addOverlay(air_shed_layer, print_legend_symbol(airshed_colour, "Airshed Area(s)", dasharray_width));
 								};
 								air_shed_layer.addData(geojsonFeature);
 								break;
