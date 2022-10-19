@@ -168,7 +168,7 @@
 						
 						var popup_text = '<a href="/locations/' + locations[i][1] + '">' + locations[i][0] + '</a>';
 						if (locations[i][3]) {
-							popup_text += '<br>Type: ' + locations[i][3];
+							popup_text += '<br>Type: ' + locations[i][4];
 						}
 						
 						var geojsonFeature = {
@@ -181,56 +181,56 @@
 						
 						switch(locations[i][3]) {
 							
-							case "Air Shed":
+							case "http://vocabs.lter-europe.net/elter_cl/10490":
 								if (map.hasLayer(air_shed_layer) == false) {
 									air_shed_layer.addTo(map);
 									layerControl.addOverlay(air_shed_layer, print_legend_symbol(airshed_colour, "Airsehd Area(s)", dasharray_width));
 								};
 								air_shed_layer.addData(geojsonFeature);
 								break;
-							case "Equipment Location":
+							case "http://vocabs.lter-europe.net/elter_cl/10491":
 								if (map.hasLayer(equipment_location_layer) == false) {
 									equipment_location_layer.addTo(map);
 									layerControl.addOverlay(equipment_location_layer, print_legend_symbol(equipment_colour, "Equipment Area(s)", 0));
 								}
 								equipment_location_layer.addData(geojsonFeature);
 								break;
-							case "Hydrological Catchment":
+							case "http://vocabs.lter-europe.net/elter_cl/10492":
 								if (map.hasLayer(hydrological_catchment_layer) == false) {
 									hydrological_catchment_layer.addTo(map);
 									layerControl.addOverlay(hydrological_catchment_layer, print_legend_symbol(hydrological_colour, "Hydrological Catchment Area(s)", dasharray_width));
 								}
 								hydrological_catchment_layer.addData(geojsonFeature);
 								break;
-							case "Model Area":
+							case "http://vocabs.lter-europe.net/elter_cl/10493":
 								if (map.hasLayer(model_area_layer) == false) {
 									model_area_layer.addTo(map);
 									layerControl.addOverlay(model_area_layer, "Model Area(s)");
 								}
 								model_area_layer.addData(geojsonFeature);
 								break;
-							case "Sampling Area":
+							case "http://vocabs.lter-europe.net/elter_cl/10494":
 								if (map.hasLayer(sampling_area_layer) == false) {
 									sampling_area_layer.addTo(map);
 									layerControl.addOverlay(sampling_area_layer, print_legend_symbol(sampling_colour, "Sampling Area(s)", dasharray_width));
 								}
 								sampling_area_layer.addData(geojsonFeature);
 								break;
-							case "Socio-ecological reference area":
+							case "http://vocabs.lter-europe.net/elter_cl/10495":
 								if (map.hasLayer(socio_ecological_layer) == false) {
 									socio_ecological_layer.addTo(map);
 									layerControl.addOverlay(socio_ecological_layer, print_legend_symbol(socioecology_colour, "Socio-ecological Reference Area(s)", dasharray_width));
 								}
 								socio_ecological_layer.addData(geojsonFeature);
 								break;
-							case "e-shape":
+							case "http://vocabs.lter-europe.net/elter_cl/10496":
 								if (map.hasLayer(e_shape_layer) == false) {
 									e_shape_layer.addTo(map);
 									layerControl.addOverlay(e_shape_layer, print_legend_symbol(eshape_colour, "Remote Sensing Analysis Area(s)", dasharray_width));
 								}
 								e_shape_layer.addData(geojsonFeature);
 								break;
-							case "not applicable":
+							case "http://vocabs.lter-europe.net/elter_cl/10227":
 							default:
 								if (map.hasLayer(other_layer) == false) {
 									other_layer.addTo(map);
