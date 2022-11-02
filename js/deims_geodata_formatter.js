@@ -205,7 +205,7 @@
 							case "http://vocabs.lter-europe.net/elter_cl/10493":
 								if (map.hasLayer(model_area_layer) == false) {
 									model_area_layer.addTo(map);
-									layerControl.addOverlay(model_area_layer, "Model Area(s)");
+									layerControl.addOverlay(model_area_layer, print_legend_symbol(model_colour, "Model Area(s)", dasharray_width));
 								}
 								model_area_layer.addData(geojsonFeature);
 								break;
