@@ -62,7 +62,6 @@
 					return '<svg height="20" width="160"><line x1="0" y1="20" x2="20" y2="0" style="stroke:' + colour_code + ';stroke-width:' + stroke_width + ' ;" stroke-dasharray="' + stroke_dasharray_value + '" />  <text x="25" y="15" fill="black" font-size="smaller">' + label + '</text></svg>';
 				}
 				
-				
 				var boundaries_style = {
 					"color": boundaries_colour,
 					"fillColor": "#ff9933",
@@ -132,10 +131,13 @@
 					"fillColor": "#ffffff00"
 				};
 				
+
+				var list_of_filled_layers = [];
+				
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
 					map.fitBounds(boundaries_layer.getBounds());
-					//layerControl.addOverlay(boundaries_layer, "Boundaries");
+					list_of_filled_layers.push(boundaries_layer)
 				}
 				
 				if (subsites.length > 0) {
@@ -150,6 +152,7 @@
 							"geometry": subsites[i][2]
 						};
 						subsites_layer.addData(geojsonFeature);
+						list_of_filled_layers.push(subsites_layer)
 					}
 				}
 				
@@ -163,6 +166,16 @@
 					var socio_ecological_layer = L.geoJSON(null,{style: socio_ecological_style, onEachFeature: onEachFeature});
 					var e_shape_layer = L.geoJSON(null,{style: eshape_style, onEachFeature: onEachFeature});
 					var other_layer = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
+					
+					list_of_filled_layers.push(air_shed_layer)
+					list_of_filled_layers.push(equipment_location_layer)
+					list_of_filled_layers.push(hydrological_catchment_layer)
+					list_of_filled_layers.push(model_area_layer)
+					list_of_filled_layers.push(sampling_area_layer)
+					list_of_filled_layers.push(socio_ecological_layer)
+					list_of_filled_layers.push(e_shape_layer)
+					list_of_filled_layers.push(other_layer)
+					
 					
 					for (let i = 0; i < locations.length; i++) {
 						
@@ -265,6 +278,40 @@
 				if (boundaries) {
 					boundaries_layer.bringToBack();
 				}
+								
+				var feature_extent = L.featureGroup(list_of_filled_layers).getBounds();
+				
+				//add button for zooming to boundaries
+
+				
+				var zoom_to_all_features =  L.Control.extend({
+
+					options: {
+						position: 'topleft'
+					},
+
+					onAdd: function (map) {
+						var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+
+						// style button
+						container.style.backgroundColor = 'white';     
+						container.style.backgroundSize = "30px 30px";
+						container.style.width = '30px';
+						container.style.height = '30px';
+						container.value = "click me";
+
+						container.onclick = function(){
+							map.fitBounds(feature_extent);
+						}
+
+						return container;
+					}
+				}); 
+
+				
+				L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+				map.addControl(new zoom_to_all_features());
+				
 				
 				// to do:
 				// white halo for line features?
