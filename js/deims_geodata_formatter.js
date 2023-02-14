@@ -279,7 +279,7 @@
 					boundaries_layer.bringToBack();
 				}
 								
-				var feature_extent = L.featureGroup(list_of_filled_layers).getBounds();
+				var all_features_extent = L.featureGroup(list_of_filled_layers).getBounds();
 				
 				//add button for zooming to boundaries
 
@@ -298,10 +298,10 @@
 						container.style.backgroundSize = "30px 30px";
 						container.style.width = '30px';
 						container.style.height = '30px';
-						container.value = "click me";
+						container.value = "Zoom to all features";
 
 						container.onclick = function(){
-							map.fitBounds(feature_extent);
+							map.fitBounds(all_features_extent);
 						}
 
 						return container;
