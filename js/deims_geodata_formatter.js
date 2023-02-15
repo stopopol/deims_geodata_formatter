@@ -136,7 +136,6 @@
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
 					map.fitBounds(boundaries_layer.getBounds());
-					list_of_filled_layers.push(boundaries_layer)
 				}
 				
 				if (subsites.length > 0) {
@@ -305,8 +304,20 @@
 					if (subsites.length > 0 || locations.length > 0) {
 						if (all_features_extent != boundaries_extent) {
 							//add button for zooming to available location(s)
+							if (subsites.length > 0) {
+									var label_text = "subsite(s)";
+							}
+								
+							if (locations.length > 0) {
+								var label_text = "location(s)";
+							}
+								
+							if (subsites.length > 0 && locations.length > 0) {
+								var label_text = "subsite(s)/location(s)";
+							}
+							
 							var zoom_to_all_features =  L.Control.extend({
-
+								
 								options: {
 									position: 'topleft'
 								},
@@ -315,8 +326,8 @@
 
 									var container = L.DomUtil.create('input');
 									container.type = "button";
-									container.title = "Zooms to all available locations";
-									container.value = "Zoom to location(s)";
+									container.title = "Zooms to all available " + label_text;
+									container.value = "Zoom to " + label_text;
 									container.onclick = function(){
 										map.fitBounds(all_features_extent);
 									}
