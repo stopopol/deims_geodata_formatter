@@ -302,31 +302,32 @@
 							
 					map.addControl(new zoom_to_boundaries());
 					
-					if (all_features_extent != boundaries_extent) {
-						//add button for zooming to available location(s)
-						var zoom_to_all_features =  L.Control.extend({
+					if (subsites.length > 0 || locations.length > 0) {
+						if (all_features_extent != boundaries_extent) {
+							//add button for zooming to available location(s)
+							var zoom_to_all_features =  L.Control.extend({
 
-							options: {
-								position: 'topleft'
-							},
+								options: {
+									position: 'topleft'
+								},
 
-							onAdd: function (map) {
+								onAdd: function (map) {
 
-								var container = L.DomUtil.create('input');
-								container.type = "button";
-								container.title = "Zooms to all available locations";
-								container.value = "Zoom to location(s)";
-								container.onclick = function(){
-									map.fitBounds(all_features_extent);
+									var container = L.DomUtil.create('input');
+									container.type = "button";
+									container.title = "Zooms to all available locations";
+									container.value = "Zoom to location(s)";
+									container.onclick = function(){
+										map.fitBounds(all_features_extent);
+									}
+
+									return container;
 								}
-
-								return container;
-							}
-						});
-							
-						map.addControl(new zoom_to_all_features());
+							});
+								
+							map.addControl(new zoom_to_all_features());
+						}
 					}
-					
 				}
 				
 				// to do:
