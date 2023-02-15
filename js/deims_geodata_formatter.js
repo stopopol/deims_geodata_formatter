@@ -131,7 +131,6 @@
 					"fillColor": "#ffffff00"
 				};
 				
-
 				var list_of_filled_layers = [];
 				
 				if (boundaries) {
@@ -175,7 +174,6 @@
 					list_of_filled_layers.push(socio_ecological_layer)
 					list_of_filled_layers.push(e_shape_layer)
 					list_of_filled_layers.push(other_layer)
-					
 					
 					for (let i = 0; i < locations.length; i++) {
 						
@@ -274,44 +272,62 @@
 					}
 					
 				}
+				
+				var all_features_extent = L.featureGroup(list_of_filled_layers).getBounds();
 
 				if (boundaries) {
 					boundaries_layer.bringToBack();
-				}
-								
-				var all_features_extent = L.featureGroup(list_of_filled_layers).getBounds();
-				
-				//add button for zooming to boundaries
+					var boundaries_extent = boundaries_layer.getBounds();
+					
+					//add button for zooming to site boundaries
+					var zoom_to_boundaries =  L.Control.extend({
 
-				
-				var zoom_to_all_features =  L.Control.extend({
+						options: {
+							position: 'topleft'
+						},
 
-					options: {
-						position: 'topleft'
-					},
+						onAdd: function (map) {
 
-					onAdd: function (map) {
-						var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+							var container = L.DomUtil.create('input');
+							container.type = "button";
+							container.title = "Zooms to the extent of the site";
+							container.value = "Zoom to site boundaries";
+							container.onclick = function(){
+								map.fitBounds(boundaries_extent);
+							}
 
-						// style button
-						container.style.backgroundColor = 'white';     
-						container.style.backgroundSize = "30px 30px";
-						container.style.width = '30px';
-						container.style.height = '30px';
-						container.value = "Zoom to all features";
-
-						container.onclick = function(){
-							map.fitBounds(all_features_extent);
+							return container;
 						}
+					});
+							
+					map.addControl(new zoom_to_boundaries());
+					
+					if (all_features_extent != boundaries_extent) {
+						//add button for zooming to available location(s)
+						var zoom_to_all_features =  L.Control.extend({
 
-						return container;
+							options: {
+								position: 'topleft'
+							},
+
+							onAdd: function (map) {
+
+								var container = L.DomUtil.create('input');
+								container.type = "button";
+								container.title = "Zooms to all available locations";
+								container.value = "Zoom to location(s)";
+								container.onclick = function(){
+									map.fitBounds(all_features_extent);
+								}
+
+								return container;
+							}
+						});
+							
+						map.addControl(new zoom_to_all_features());
 					}
-				}); 
-
-				
-				L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-				map.addControl(new zoom_to_all_features());
-				
+					
+				}
 				
 				// to do:
 				// white halo for line features?
