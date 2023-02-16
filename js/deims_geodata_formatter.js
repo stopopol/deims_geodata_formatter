@@ -135,7 +135,8 @@
 				
 				if (boundaries) {
 					var boundaries_layer = L.geoJSON(boundaries, {style: boundaries_style}).addTo(map);
-					map.fitBounds(boundaries_layer.getBounds());
+					var boundaries_extent = boundaries_layer.getBounds();
+					map.fitBounds(boundaries_extent);
 				}
 				
 				if (subsites.length > 0) {
@@ -165,15 +166,6 @@
 					var e_shape_layer = L.geoJSON(null,{style: eshape_style, onEachFeature: onEachFeature});
 					var other_layer = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
 					
-					list_of_filled_layers.push(air_shed_layer)
-					list_of_filled_layers.push(equipment_location_layer)
-					list_of_filled_layers.push(hydrological_catchment_layer)
-					list_of_filled_layers.push(model_area_layer)
-					list_of_filled_layers.push(sampling_area_layer)
-					list_of_filled_layers.push(socio_ecological_layer)
-					list_of_filled_layers.push(e_shape_layer)
-					list_of_filled_layers.push(other_layer)
-					
 					for (let i = 0; i < locations.length; i++) {
 						
 						var popup_text = '<a href="/locations/' + locations[i][1] + '">' + locations[i][0] + '</a>';
@@ -195,6 +187,7 @@
 								if (map.hasLayer(air_shed_layer) == false) {
 									air_shed_layer.addTo(map);
 									layerControl.addOverlay(air_shed_layer, print_legend_symbol(airshed_colour, "Airshed Area(s)", dasharray_width));
+									list_of_filled_layers.push(air_shed_layer);
 								};
 								air_shed_layer.addData(geojsonFeature);
 								break;
@@ -202,6 +195,7 @@
 								if (map.hasLayer(equipment_location_layer) == false) {
 									equipment_location_layer.addTo(map);
 									layerControl.addOverlay(equipment_location_layer, print_legend_symbol(equipment_colour, "Equipment Area(s)", 0));
+									list_of_filled_layers.push(equipment_location_layer);
 								}
 								equipment_location_layer.addData(geojsonFeature);
 								break;
@@ -209,6 +203,7 @@
 								if (map.hasLayer(hydrological_catchment_layer) == false) {
 									hydrological_catchment_layer.addTo(map);
 									layerControl.addOverlay(hydrological_catchment_layer, print_legend_symbol(hydrological_colour, "Hydrological Catchment Area(s)", dasharray_width));
+									list_of_filled_layers.push(hydrological_catchment_layer);
 								}
 								hydrological_catchment_layer.addData(geojsonFeature);
 								break;
@@ -216,6 +211,7 @@
 								if (map.hasLayer(model_area_layer) == false) {
 									model_area_layer.addTo(map);
 									layerControl.addOverlay(model_area_layer, print_legend_symbol(model_colour, "Model Area(s)", dasharray_width));
+									list_of_filled_layers.push(model_area_layer);
 								}
 								model_area_layer.addData(geojsonFeature);
 								break;
@@ -223,6 +219,7 @@
 								if (map.hasLayer(sampling_area_layer) == false) {
 									sampling_area_layer.addTo(map);
 									layerControl.addOverlay(sampling_area_layer, print_legend_symbol(sampling_colour, "Sampling Area(s)", dasharray_width));
+									list_of_filled_layers.push(sampling_area_layer);
 								}
 								sampling_area_layer.addData(geojsonFeature);
 								break;
@@ -230,6 +227,7 @@
 								if (map.hasLayer(socio_ecological_layer) == false) {
 									socio_ecological_layer.addTo(map);
 									layerControl.addOverlay(socio_ecological_layer, print_legend_symbol(socioecology_colour, "Socio-ecological Reference Area(s)", dasharray_width));
+									list_of_filled_layers.push(socio_ecological_layer);
 								}
 								socio_ecological_layer.addData(geojsonFeature);
 								break;
@@ -237,6 +235,7 @@
 								if (map.hasLayer(e_shape_layer) == false) {
 									e_shape_layer.addTo(map);
 									layerControl.addOverlay(e_shape_layer, print_legend_symbol(eshape_colour, "Remote Sensing Analysis Area(s)", dasharray_width));
+									list_of_filled_layers.push(e_shape_layer);
 								}
 								e_shape_layer.addData(geojsonFeature);
 								break;
@@ -245,6 +244,7 @@
 								if (map.hasLayer(other_layer) == false) {
 									other_layer.addTo(map);
 									layerControl.addOverlay(other_layer, print_legend_symbol(other_colour, "Other (unclassified) Location(s)", dasharray_width));
+									list_of_filled_layers.push(other_layer);
 								}
 								other_layer.addData(geojsonFeature);
 						}
@@ -276,7 +276,6 @@
 
 				if (boundaries) {
 					boundaries_layer.bringToBack();
-					var boundaries_extent = boundaries_layer.getBounds();
 					
 					//add button for zooming to site boundaries
 					var zoom_to_boundaries =  L.Control.extend({
@@ -303,6 +302,7 @@
 					
 					if (subsites.length > 0 || locations.length > 0) {
 						if (all_features_extent != boundaries_extent) {
+							
 							//add button for zooming to available location(s)
 							if (subsites.length > 0) {
 									var label_text = "subsite(s)";
