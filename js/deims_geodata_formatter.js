@@ -301,7 +301,7 @@
 					map.addControl(new zoom_to_boundaries());
 					
 					if (subsites.length > 0 || locations.length > 0) {
-						if (all_features_extent != boundaries_extent) {
+						if (JSON.stringify(all_features_extent) != JSON.stringify(boundaries_extent)) {
 							
 							//add button for zooming to available location(s)
 							if (subsites.length > 0) {
