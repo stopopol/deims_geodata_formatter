@@ -210,7 +210,7 @@
 							case "http://vocabs.lter-europe.net/elter_cl/10491":
 								if (map.hasLayer(equipment_location_layer) == false) {
 									equipment_location_layer.addTo(map);
-									layerControl.addOverlay(equipment_location_layer, print_legend_symbol(equipment_colour, "Equipment Area(s)", 0));
+									layerControl.addOverlay(equipment_location_layer, print_legend_symbol(equipment_colour, "Equipment Location(s)", 0));
 									list_of_filled_layers.push(equipment_location_layer);
 								}
 								equipment_location_layer.addData(geojsonFeature);
