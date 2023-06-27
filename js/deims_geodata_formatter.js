@@ -93,8 +93,18 @@
 				var equipment_location_style = {
 					"color": equipment_colour,
 					"weight": stroke_width,
-					"fillColor": "#ffffff00"
+					"fillColor": "#ffffff00",
 				};
+				
+				var equipmentIcon = L.icon({
+					iconUrl: input_data["icons"]["equipment"],
+					shadowUrl: input_data["icons"]["shadow"],
+					iconSize:     [25, 41], // size of the icon
+					shadowSize:   [41, 41], // size of the shadow
+					iconAnchor:   [12.5, 41], // point of the icon which will correspond to marker's location
+					shadowAnchor: [12.5, 41],  // the same for the shadow
+					popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
+				});
 				
 				var eshape_style = {
 					"color": eshape_colour,
@@ -158,7 +168,13 @@
 				if (locations.length > 0) {
 									
 					var air_shed_layer = L.geoJSON(null,{style: airshed_style, onEachFeature: onEachFeature});
-					var equipment_location_layer = L.geoJSON(null,{style: equipment_location_style, onEachFeature: onEachFeature});
+					var equipment_location_layer = L.geoJSON(null,{
+						pointToLayer: function (feature, latlng) {
+						  return L.marker(latlng, {icon: equipmentIcon});
+					    },
+						style: equipment_location_style, 
+						onEachFeature: onEachFeature,
+					});
 					var hydrological_catchment_layer = L.geoJSON(null,{style: hydrological_catchment_style, onEachFeature: onEachFeature});
 					var model_area_layer = L.geoJSON(null,{style: model_area_style, onEachFeature: onEachFeature});
 					var sampling_area_layer = L.geoJSON(null,{style: sampling_area_style, onEachFeature: onEachFeature});
@@ -198,6 +214,7 @@
 									list_of_filled_layers.push(equipment_location_layer);
 								}
 								equipment_location_layer.addData(geojsonFeature);
+								
 								break;
 							case "http://vocabs.lter-europe.net/elter_cl/10492":
 								if (map.hasLayer(hydrological_catchment_layer) == false) {

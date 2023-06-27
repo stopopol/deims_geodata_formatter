@@ -16,5 +16,5 @@ leaflet:
       component:
         css/leaflet.css: {}
     js:
-      js/leaflet.js: {}
+        js/leaflet.js: {}
 

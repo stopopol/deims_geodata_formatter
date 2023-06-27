@@ -114,6 +114,11 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					// there should always at least be coordinates but just in case check for geometries
 					if ($coordinates != null || $boundaries != null || !empty($related_locations) || !empty($related_subsites)) {
+						
+						$module_path = drupal_get_path('module', 'deims_geodata_formatter');
+						$equipment_icon_path = file_create_url("$module_path/css/images/grey-marker-icon.png");
+						$shadow_icon_path = file_create_url("$module_path/css/images/marker-shadow.png");
+						
 						// setting css class is not working
 						$elements[$delta] = [
 							'#markup' => '<div id="site_record_map" class="map-height" style="height: 400px;"></div>' ,
@@ -126,13 +131,17 @@ class DeimsGeodataFormatter extends FormatterBase {
 											'boundaries' => $boundaries,
 											'related_locations' => $all_related_locations,
 											'related_subsites' => $all_related_subsites,
+											'icons' => array(
+												'equipment' => $equipment_icon_path,
+												'shadow' => $shadow_icon_path,
+											) 
 										),
 									)
 								),
 							),
 							
 						]; 
-					 }
+					}
 					
 					else {
 						return $elements;
