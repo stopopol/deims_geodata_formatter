@@ -118,6 +118,8 @@ class DeimsGeodataFormatter extends FormatterBase {
 						$module_path = drupal_get_path('module', 'deims_geodata_formatter');
 						$equipment_icon_path = file_create_url("$module_path/css/images/grey-marker-icon.png");
 						$shadow_icon_path = file_create_url("$module_path/css/images/marker-shadow.png");
+						$sampling_icon_path = file_create_url("$module_path/css/images/green-marker-icon.png");
+						$other_icon_path = file_create_url("$module_path/css/images/brown-marker-icon.png");
 						
 						// setting css class is not working
 						$elements[$delta] = [
@@ -134,6 +136,8 @@ class DeimsGeodataFormatter extends FormatterBase {
 											'icons' => array(
 												'equipment' => $equipment_icon_path,
 												'shadow' => $shadow_icon_path,
+												'sampling' => $sampling_icon_path,
+												'other' => $other_icon_path,
 											) 
 										),
 									)

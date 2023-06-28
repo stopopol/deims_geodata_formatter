@@ -96,15 +96,20 @@
 					"fillColor": "#ffffff00",
 				};
 				
-				var equipmentIcon = L.icon({
-					iconUrl: input_data["icons"]["equipment"],
-					shadowUrl: input_data["icons"]["shadow"],
-					iconSize:     [25, 41], // size of the icon
-					shadowSize:   [41, 41], // size of the shadow
-					iconAnchor:   [12.5, 41], // point of the icon which will correspond to marker's location
-					shadowAnchor: [12.5, 41],  // the same for the shadow
-					popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
+				var custom_icon = L.Icon.extend({
+					options: {
+						shadowUrl: input_data["icons"]["shadow"],
+						iconSize:     [25, 41], // size of the icon
+						shadowSize:   [41, 41], // size of the shadow
+						iconAnchor:   [12.5, 41], // point of the icon which will correspond to marker's location
+						shadowAnchor: [12.5, 41],  // the same for the shadow
+						popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
+					}
 				});
+				
+				var equipmentIcon = new custom_icon({iconUrl: input_data["icons"]["equipment"]}),
+					otherIcon = new custom_icon({iconUrl: input_data["icons"]["other"]})
+					samplingIcon = new custom_icon({iconUrl: input_data["icons"]["sampling"]});
 				
 				var eshape_style = {
 					"color": eshape_colour,
@@ -177,10 +182,22 @@
 					});
 					var hydrological_catchment_layer = L.geoJSON(null,{style: hydrological_catchment_style, onEachFeature: onEachFeature});
 					var model_area_layer = L.geoJSON(null,{style: model_area_style, onEachFeature: onEachFeature});
-					var sampling_area_layer = L.geoJSON(null,{style: sampling_area_style, onEachFeature: onEachFeature});
+					var sampling_area_layer = L.geoJSON(null,{
+						pointToLayer: function (feature, latlng) {
+						  return L.marker(latlng, {icon: samplingIcon});
+					    },
+						style: sampling_area_style, 
+						onEachFeature: onEachFeature
+					});
 					var socio_ecological_layer = L.geoJSON(null,{style: socio_ecological_style, onEachFeature: onEachFeature});
 					var e_shape_layer = L.geoJSON(null,{style: eshape_style, onEachFeature: onEachFeature});
-					var other_layer = L.geoJSON(null,{style: other_style, onEachFeature: onEachFeature});
+					var other_layer = L.geoJSON(null,{
+						pointToLayer: function (feature, latlng) {
+						  return L.marker(latlng, {icon: otherIcon});
+					    },
+						style: other_style, 
+						onEachFeature: onEachFeature
+					});
 					
 					for (let i = 0; i < locations.length; i++) {
 						
