@@ -252,7 +252,7 @@
 							case "http://vocabs.lter-europe.net/elter_cl/10494":
 								if (map.hasLayer(sampling_area_layer) == false) {
 									sampling_area_layer.addTo(map);
-									layerControl.addOverlay(sampling_area_layer, print_legend_symbol(sampling_colour, "Sampling Area(s)", dasharray_width));
+									layerControl.addOverlay(sampling_area_layer, print_legend_symbol(sampling_colour, "Sampling Location(s)", dasharray_width));
 									list_of_filled_layers.push(sampling_area_layer);
 								}
 								sampling_area_layer.addData(geojsonFeature);
