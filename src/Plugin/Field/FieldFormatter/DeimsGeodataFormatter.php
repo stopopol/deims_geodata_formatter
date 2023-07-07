@@ -4,6 +4,7 @@ namespace Drupal\deims_geodata_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\geofield\GeoPHP\GeoPHPInterface;
 
 /**
@@ -66,6 +67,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					// load all locations that have referenced this node
 					$related_locations_query = \Drupal::entityQuery('node');
+					$related_locations_query->accessCheck(FALSE);
 					$related_locations_query->condition('field_related_site',$node->id());
 					$related_locations_query->condition('type', 'observation_location');
 					$related_locations_ids = $related_locations_query->execute();
@@ -73,6 +75,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					// subsites
 					$related_subsites_query = \Drupal::entityQuery('node');
+					$related_subsites_query->accessCheck(FALSE);
 					$related_subsites_query->condition('field_parent_site',$node->id());
 					$related_subsites_query->condition('type', 'site');
 					$related_subsites_ids = $related_subsites_query->execute();
@@ -114,12 +117,14 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					// there should always at least be coordinates but just in case check for geometries
 					if ($coordinates != null || $boundaries != null || !empty($related_locations) || !empty($related_subsites)) {
+												
+						$module_path = \Drupal::service('extension.list.module')->getPath('deims_geodata_formatter');
 						
-						$module_path = drupal_get_path('module', 'deims_geodata_formatter');
-						$equipment_icon_path = file_create_url("$module_path/css/images/grey-marker-icon.png");
-						$shadow_icon_path = file_create_url("$module_path/css/images/marker-shadow.png");
-						$sampling_icon_path = file_create_url("$module_path/css/images/green-marker-icon.png");
-						$other_icon_path = file_create_url("$module_path/css/images/brown-marker-icon.png");
+						$file_generator = \Drupal::service('file_url_generator');
+						$equipment_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/grey-marker-icon.png");
+						$shadow_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/marker-shadow.png");
+						$sampling_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/green-marker-icon.png");
+						$other_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/brown-marker-icon.png");
 						
 						// setting css class is not working
 						$elements[$delta] = [
