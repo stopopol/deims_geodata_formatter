@@ -51,20 +51,9 @@ class DeimsGeodataFormatter extends FormatterBase {
 			if (!empty($nodes)) {
 				foreach ($nodes as $node) {
 					
-					if (!$node->get('field_coordinates')->isEmpty()) {
-						$coordinates = json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_coordinates')->value)->out('json'));
-					}
-					else {
-						$coordinates = null;
-					}
-					
-					if (!$node->get('field_boundaries')->isEmpty()) {
-						$boundaries = json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_boundaries')->value)->out('json'));
-					}
-					else {
-						$boundaries = null;
-					}
-					
+					$coordinates = (!$node->get('field_coordinates')->isEmpty()) ? json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_coordinates')->value)->out('json')) : null;
+					$boundaries = (!$node->get('field_boundaries')->isEmpty()) ? json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_boundaries')->value)->out('json')) : null;
+								
 					// load all locations that have referenced this node
 					$related_locations_query = \Drupal::entityQuery('node');
 					$related_locations_query->accessCheck(FALSE);
@@ -74,12 +63,20 @@ class DeimsGeodataFormatter extends FormatterBase {
 					$related_locations = \Drupal\node\Entity\Node::loadMultiple($related_locations_ids);					
 					
 					// subsites
+					
+					// $pids = \Drupal::entityQuery('paragraph')
+					//->condition('type', 'my_paragraph_type')
+					//->execute();
+  
+  
 					$related_subsites_query = \Drupal::entityQuery('node');
 					$related_subsites_query->accessCheck(FALSE);
 					$related_subsites_query->condition('field_parent_site',$node->id());
 					$related_subsites_query->condition('type', 'site');
 					$related_subsites_ids = $related_subsites_query->execute();
 					$related_subsites = \Drupal\node\Entity\Node::loadMultiple($related_subsites_ids);
+					
+					
 					
 					$all_related_locations = array();
 					$all_related_subsites = array();
