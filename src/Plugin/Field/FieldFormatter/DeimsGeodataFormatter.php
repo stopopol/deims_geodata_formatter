@@ -6,6 +6,7 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\geofield\GeoPHP\GeoPHPInterface;
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Plugin implementation of the 'DeimsGeodataFormatter' formatter.
@@ -60,26 +61,20 @@ class DeimsGeodataFormatter extends FormatterBase {
 					$related_locations_query->condition('field_related_site',$node->id());
 					$related_locations_query->condition('type', 'observation_location');
 					$related_locations_ids = $related_locations_query->execute();
-					$related_locations = \Drupal\node\Entity\Node::loadMultiple($related_locations_ids);					
+					$related_locations = \Drupal\node\Entity\Node::loadMultiple($related_locations_ids);
 					
-					// subsites
-					
-					// $pids = \Drupal::entityQuery('paragraph')
-					//->condition('type', 'my_paragraph_type')
-					//->execute();
-  
-  
-					$related_subsites_query = \Drupal::entityQuery('node');
-					$related_subsites_query->accessCheck(FALSE);
-					$related_subsites_query->condition('field_parent_site',$node->id());
-					$related_subsites_query->condition('type', 'site');
-					$related_subsites_ids = $related_subsites_query->execute();
-					$related_subsites = \Drupal\node\Entity\Node::loadMultiple($related_subsites_ids);
-					
-					
-					
+					// related sites
+					$all_referenced_site_ids = array();
+					 
+					// get all paragraphs in field; get their node ids 
+					foreach ($node->field_related_sites_paragraph as $relationship) {		
+						array_push($all_referenced_site_ids, array_column($relationship->entity->field_related_sites->getValue(), 'target_id'));
+					}
+	
+					$related_sites = \Drupal\node\Entity\Node::loadMultiple($all_referenced_site_ids[0]);
+				
 					$all_related_locations = array();
-					$all_related_subsites = array();
+					$all_related_sites = array();
 					
 					foreach ($related_locations as $location) {
 						// do stuff for every location
@@ -101,19 +96,19 @@ class DeimsGeodataFormatter extends FormatterBase {
 						
 					}
 					
-					foreach ($related_subsites as $subsite) {
-						// do stuff for every subsite
-						$subsite_title = $subsite->get('title')->value;
-						$subsite_uuid = $subsite->get('uuid')->value;
-						if (!$subsite->get('field_boundaries')->isEmpty()) {
-							$subsite_geometry = json_decode(\Drupal::service('geofield.geophp')->load($subsite->get('field_boundaries')->value)->out('json'));
-							array_push($all_related_subsites, array($subsite_title, $subsite_uuid, $subsite_geometry));
+					foreach ($related_sites as $related_site) {
+						// do stuff for every related site
+						$subsite_title = $related_site->get('title')->value;
+						$subsite_uuid = $related_site->get('uuid')->value;
+						if (!$related_site->get('field_boundaries')->isEmpty()) {
+							$related_site_geometry = json_decode(\Drupal::service('geofield.geophp')->load($related_site->get('field_boundaries')->value)->out('json'));
+							array_push($all_related_sites, array($related_site_title, $related_site_uuid, $related_site_geometry));
 						}
 						
 					}					
 					
 					// there should always at least be coordinates but just in case check for geometries
-					if ($coordinates != null || $boundaries != null || !empty($related_locations) || !empty($related_subsites)) {
+					if ($coordinates != null || $boundaries != null || !empty($related_locations) || !empty($related_sites)) {
 												
 						$module_path = \Drupal::service('extension.list.module')->getPath('deims_geodata_formatter');
 						
@@ -134,7 +129,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 											'coordinates' => $coordinates,
 											'boundaries' => $boundaries,
 											'related_locations' => $all_related_locations,
-											'related_subsites' => $all_related_subsites,
+											'related_sites' => $all_related_sites,
 											'icons' => array(
 												'equipment' => $equipment_icon_path,
 												'shadow' => $shadow_icon_path,

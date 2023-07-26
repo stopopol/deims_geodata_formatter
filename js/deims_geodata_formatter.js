@@ -7,7 +7,7 @@
 			var coordinates = input_data["coordinates"]
 			var boundaries = input_data["boundaries"]
 			var locations = input_data["related_locations"]
-			var subsites = input_data["related_subsites"]
+			var related_sites = input_data["related_sites"]
 			
 			$(context).find("#site_record_map").once("#site_record_map").each(function () {
 				
@@ -50,7 +50,7 @@
 				var eshape_colour = "#cc0066";
 				var hydrological_colour = "#3399FF";
 				var boundaries_colour = "#FFFFFF";
-				var subsites_colour = "#ff6633";
+				var related_sites_colour = "#ff6633";
 				var sampling_colour = "#336600";
 				var airshed_colour = "#6699cc";
 				var equipment_colour = "#999999";
@@ -69,8 +69,8 @@
 					"weight": stroke_width,
 				};
 				
-				var subsites_style = {
-					"color": subsites_colour,
+				var related_sites_style = {
+					"color": related_sites_colour,
 					"weight": stroke_width,
 					"dashArray": dasharray_width,
 					"fillColor": "#ffffff00"
@@ -154,19 +154,19 @@
 					map.fitBounds(boundaries_extent);
 				}
 				
-				if (subsites.length > 0) {
-					var subsites_layer = L.geoJSON(null,{style: subsites_style, onEachFeature: onEachFeature}).addTo(map);
-					layerControl.addOverlay(subsites_layer, print_legend_symbol(subsites_colour, "Subsite(s)", dasharray_width));
-					for (let i = 0; i < subsites.length; i++) {
+				if (related_sites.length > 0) {
+					var related_sites_layer = L.geoJSON(null,{style: related_sites_style, onEachFeature: onEachFeature}).addTo(map);
+					layerControl.addOverlay(related_sites_layer, print_legend_symbol(related_sites_colour, "Related site(s)", dasharray_width));
+					for (let i = 0; i < related_sites.length; i++) {
 						var geojsonFeature = {
 							"type": "Feature",
 							"properties": {
-								"popupContent": '<a href="/' + subsites[i][1] + '">' + subsites[i][0] + '</a><br>Type: Subsite',
+								"popupContent": '<a href="/' + related_sites[i][1] + '">' + related_sites[i][0] + '</a><br>Type: Related site',
 							},
-							"geometry": subsites[i][2]
+							"geometry": related_sites[i][2]
 						};
-						subsites_layer.addData(geojsonFeature);
-						list_of_filled_layers.push(subsites_layer)
+						related_sites_layer.addData(geojsonFeature);
+						list_of_filled_layers.push(related_sites_layer)
 					}
 				}
 				
@@ -334,20 +334,20 @@
 							
 					map.addControl(new zoom_to_boundaries());
 					
-					if (subsites.length > 0 || locations.length > 0) {
+					if (related_sites.length > 0 || locations.length > 0) {
 						if (JSON.stringify(all_features_extent) != JSON.stringify(boundaries_extent)) {
 							
 							//add button for zooming to available location(s)
-							if (subsites.length > 0) {
-									var label_text = "subsite(s)";
+							if (related_sites.length > 0) {
+									var label_text = "related site(s)";
 							}
 								
 							if (locations.length > 0) {
 								var label_text = "location(s)";
 							}
 								
-							if (subsites.length > 0 && locations.length > 0) {
-								var label_text = "subsite(s)/location(s)";
+							if (related_sites.length > 0 && locations.length > 0) {
+								var label_text = "related site(s)/location(s)";
 							}
 							
 							var zoom_to_all_features =  L.Control.extend({
