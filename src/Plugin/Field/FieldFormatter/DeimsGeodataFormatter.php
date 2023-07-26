@@ -71,8 +71,13 @@ class DeimsGeodataFormatter extends FormatterBase {
 						array_push($all_referenced_site_ids, array_column($relationship->entity->field_related_sites->getValue(), 'target_id'));
 					}
 	
-					$related_sites = \Drupal\node\Entity\Node::loadMultiple($all_referenced_site_ids[0]);
-				
+					if ($all_referenced_site_ids) {
+						$related_sites = \Drupal\node\Entity\Node::loadMultiple($all_referenced_site_ids[0]);
+					}
+					else {
+						$related_sites = null;
+					}
+					
 					$all_related_locations = array();
 					$all_related_sites = array();
 					
@@ -98,8 +103,8 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					foreach ($related_sites as $related_site) {
 						// do stuff for every related site
-						$subsite_title = $related_site->get('title')->value;
-						$subsite_uuid = $related_site->get('uuid')->value;
+						$related_site_title = $related_site->get('title')->value;
+						$related_site_uuid = $related_site->get('uuid')->value;
 						if (!$related_site->get('field_boundaries')->isEmpty()) {
 							$related_site_geometry = json_decode(\Drupal::service('geofield.geophp')->load($related_site->get('field_boundaries')->value)->out('json'));
 							array_push($all_related_sites, array($related_site_title, $related_site_uuid, $related_site_geometry));
