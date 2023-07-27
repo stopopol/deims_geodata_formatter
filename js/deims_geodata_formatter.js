@@ -153,6 +153,9 @@
 					var boundaries_extent = boundaries_layer.getBounds();
 					map.fitBounds(boundaries_extent);
 				}
+				else {
+					var boundaries_extent = null;
+				}
 				
 				if (related_sites.length > 0) {
 					var related_sites_layer = L.geoJSON(null,{style: related_sites_style, onEachFeature: onEachFeature}).addTo(map);
@@ -166,7 +169,7 @@
 							"geometry": related_sites[i][2]
 						};
 						related_sites_layer.addData(geojsonFeature);
-						list_of_filled_layers.push(related_sites_layer)
+						//list_of_filled_layers.push(related_sites_layer)
 					}
 				}
 				
@@ -305,8 +308,6 @@
 					}
 					
 				}
-				
-				var all_features_extent = L.featureGroup(list_of_filled_layers).getBounds();
 
 				if (boundaries) {
 					boundaries_layer.bringToBack();
@@ -333,47 +334,66 @@
 					});
 							
 					map.addControl(new zoom_to_boundaries());
-					
-					if (related_sites.length > 0 || locations.length > 0) {
-						if (JSON.stringify(all_features_extent) != JSON.stringify(boundaries_extent)) {
+				
+				}
+				
+				if (related_sites.length > 0) {
+					var related_sites_extent = related_sites_layer.getBounds();
+					if (JSON.stringify(related_sites_extent) != JSON.stringify(boundaries_extent)) {
 							
-							//add button for zooming to available location(s)
-							if (related_sites.length > 0) {
-									var label_text = "related site(s)";
-							}
+						var zoom_to_related_sites =  L.Control.extend({
 								
-							if (locations.length > 0) {
-								var label_text = "location(s)";
-							}
-								
-							if (related_sites.length > 0 && locations.length > 0) {
-								var label_text = "related site(s)/location(s)";
-							}
-							
-							var zoom_to_all_features =  L.Control.extend({
-								
-								options: {
-									position: 'topleft'
-								},
+							options: {
+								position: 'topleft'
+							},
 
-								onAdd: function (map) {
+							onAdd: function (map) {
 
-									var container = L.DomUtil.create('input');
-									container.type = "button";
-									container.title = "Zooms to all available " + label_text;
-									container.value = "Zoom to " + label_text;
-									container.onclick = function(){
-										map.fitBounds(all_features_extent);
-									}
-
-									return container;
+								var container = L.DomUtil.create('input');
+								container.type = "button";
+								container.title = "Zooms to related sites";
+								container.value = "Zoom to related site(s)";
+								container.onclick = function(){
+									map.fitBounds(related_sites_extent);
 								}
-							});
+
+								return container;
+							}
+						});
 								
-							map.addControl(new zoom_to_all_features());
-						}
+						map.addControl(new zoom_to_related_sites());
 					}
 				}
+					
+				if (locations.length > 0) {
+					var locations_extent = L.featureGroup(list_of_filled_layers).getBounds();
+					if (JSON.stringify(locations_extent) != JSON.stringify(boundaries_extent)) {
+							
+						var zoom_to_all_locations =  L.Control.extend({
+								
+							options: {
+								position: 'topleft'
+							},
+
+							onAdd: function (map) {
+
+								var container = L.DomUtil.create('input');
+								container.type = "button";
+								container.title = "Zooms to related locations";
+								container.value = "Zoom to related location(s)";
+								container.onclick = function(){
+									map.fitBounds(locations_extent);
+								}
+
+								return container;
+							}
+						});
+								
+						map.addControl(new zoom_to_all_locations());
+					}
+				}
+					
+				
 				
 				// to do:
 				// white halo for line features?
