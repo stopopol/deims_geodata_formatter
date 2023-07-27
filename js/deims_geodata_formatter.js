@@ -336,35 +336,7 @@
 					map.addControl(new zoom_to_boundaries());
 				
 				}
-				
-				if (related_sites.length > 0) {
-					var related_sites_extent = related_sites_layer.getBounds();
-					if (JSON.stringify(related_sites_extent) != JSON.stringify(boundaries_extent)) {
-							
-						var zoom_to_related_sites =  L.Control.extend({
-								
-							options: {
-								position: 'topleft'
-							},
 
-							onAdd: function (map) {
-
-								var container = L.DomUtil.create('input');
-								container.type = "button";
-								container.title = "Zooms to related sites";
-								container.value = "Zoom to related site(s)";
-								container.onclick = function(){
-									map.fitBounds(related_sites_extent);
-								}
-
-								return container;
-							}
-						});
-								
-						map.addControl(new zoom_to_related_sites());
-					}
-				}
-					
 				if (locations.length > 0) {
 					var locations_extent = L.featureGroup(list_of_filled_layers).getBounds();
 					if (JSON.stringify(locations_extent) != JSON.stringify(boundaries_extent)) {
@@ -392,11 +364,37 @@
 						map.addControl(new zoom_to_all_locations());
 					}
 				}
-					
 				
+				if (related_sites.length > 0) {
+					var related_sites_extent = related_sites_layer.getBounds();
+					if (JSON.stringify(related_sites_extent) != JSON.stringify(boundaries_extent)) {
+							
+						var zoom_to_related_sites =  L.Control.extend({
+								
+							options: {
+								position: 'topleft'
+							},
+
+							onAdd: function (map) {
+
+								var container = L.DomUtil.create('input');
+								container.type = "button";
+								container.title = "Zooms to related sites";
+								container.value = "Zoom to related site(s)";
+								container.onclick = function(){
+									map.fitBounds(related_sites_extent);
+								}
+
+								return container;
+							}
+						});
+								
+						map.addControl(new zoom_to_related_sites());
+					}
+				}				
 				
 				// to do:
-				// white halo for line features?
+				// white halo for line features? might require switch to open layers
 				
 			});
 			
