@@ -80,38 +80,42 @@ class DeimsGeodataFormatter extends FormatterBase {
 					
 					$all_related_locations = array();
 					$all_related_sites = array();
-					
-					foreach ($related_locations as $location) {
-						// do stuff for every location
-						$location_title = $location->get('title')->value;
-						$location_uuid = $location->get('uuid')->value;
-						$location_geometry = json_decode(\Drupal::service('geofield.geophp')->load($location->get('field_boundaries')->value)->out('json'));
-						$location_type_uri = null;
-						$location_type_label = null;
-							
-						foreach ($location->get('field_location_type')->referencedEntities() as $location_entity) {
-							$location_type_uri = $location_entity->field_uri->uri;
-							$location_type_label = $location_entity->label();
-						}
-						
-						if (!$location->get('field_boundaries')->isEmpty()) {
+
+					if ($related_locations) {
+						foreach ($related_locations as $location) {
+							// do stuff for every location
+							$location_title = $location->get('title')->value;
+							$location_uuid = $location->get('uuid')->value;
 							$location_geometry = json_decode(\Drupal::service('geofield.geophp')->load($location->get('field_boundaries')->value)->out('json'));
-							array_push($all_related_locations, array($location_title, $location_uuid, $location_geometry, $location_type_uri, $location_type_label));
+							$location_type_uri = null;
+							$location_type_label = null;
+								
+							foreach ($location->get('field_location_type')->referencedEntities() as $location_entity) {
+								$location_type_uri = $location_entity->field_uri->uri;
+								$location_type_label = $location_entity->label();
+							}
+							
+							if (!$location->get('field_boundaries')->isEmpty()) {
+								$location_geometry = json_decode(\Drupal::service('geofield.geophp')->load($location->get('field_boundaries')->value)->out('json'));
+								array_push($all_related_locations, array($location_title, $location_uuid, $location_geometry, $location_type_uri, $location_type_label));
+							}
+							
 						}
-						
 					}
-					
-					foreach ($related_sites as $related_site) {
-						// do stuff for every related site
-						$related_site_title = $related_site->get('title')->value;
-						$related_site_uuid = $related_site->get('uuid')->value;
-						if (!$related_site->get('field_boundaries')->isEmpty()) {
-							$related_site_geometry = json_decode(\Drupal::service('geofield.geophp')->load($related_site->get('field_boundaries')->value)->out('json'));
-							array_push($all_related_sites, array($related_site_title, $related_site_uuid, $related_site_geometry));
-						}
+
+					if ($related_sites) {
+						foreach ($related_sites as $related_site) {
+							// do stuff for every related site
+							$related_site_title = $related_site->get('title')->value;
+							$related_site_uuid = $related_site->get('uuid')->value;
+							if (!$related_site->get('field_boundaries')->isEmpty()) {
+								$related_site_geometry = json_decode(\Drupal::service('geofield.geophp')->load($related_site->get('field_boundaries')->value)->out('json'));
+								array_push($all_related_sites, array($related_site_title, $related_site_uuid, $related_site_geometry));
+							}
+							
+						}					
+					}
 						
-					}					
-					
 					// there should always at least be coordinates but just in case check for geometries
 					if ($coordinates != null || $boundaries != null || !empty($related_locations) || !empty($related_sites)) {
 												
