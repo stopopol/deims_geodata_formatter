@@ -9,8 +9,9 @@
 			var locations = input_data["related_locations"]
 			var related_sites = input_data["related_sites"]
 			
-			$(context).find("#site_record_map").once("#site_record_map").each(function () {
-				
+			$(once("#site_record_map", '#site_record_map', context))
+                          .each(function () {
+				  
 				var element = document.getElementById("site_record_map");
 				element.style.height = "400px";
 				element.style.minWidth = "150px";
