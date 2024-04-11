@@ -53,6 +53,8 @@ class DeimsGeodataFormatter extends FormatterBase {
 				foreach ($nodes as $node) {
 					
 					$coordinates = (!$node->get('field_coordinates')->isEmpty()) ? json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_coordinates')->value)->out('json')) : null;
+					// for the label https://geophp.net/api.html ->x and ->y can be used instead, e.g.
+					// rewrite above line to have longer if statement and construct pretty printed label?
 					$boundaries = (!$node->get('field_boundaries')->isEmpty()) ? json_decode(\Drupal::service('geofield.geophp')->load($node->get('field_boundaries')->value)->out('json')) : null;
 								
 					// load all locations that have referenced this node
