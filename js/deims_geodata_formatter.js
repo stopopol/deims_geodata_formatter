@@ -110,6 +110,7 @@
 				
 				var equipmentIcon = new custom_icon({iconUrl: input_data["icons"]["equipment"]}),
 					otherIcon = new custom_icon({iconUrl: input_data["icons"]["other"]})
+				        hydroIcon = new custom_icon({iconUrl: input_data["icons"]["hydro"]})
 					samplingIcon = new custom_icon({iconUrl: input_data["icons"]["sampling"]});
 				
 				var eshape_style = {
