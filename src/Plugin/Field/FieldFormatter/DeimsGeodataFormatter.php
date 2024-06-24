@@ -128,6 +128,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 						$shadow_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/marker-shadow.png");
 						$sampling_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/green-marker-icon.png");
 						$other_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/brown-marker-icon.png");
+						$hydro_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/blue-marker-icon.png");
 						
 						// setting css class is not working
 						$elements[$delta] = [
@@ -146,6 +147,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 												'shadow' => $shadow_icon_path,
 												'sampling' => $sampling_icon_path,
 												'other' => $other_icon_path,
+												'hydro' => $hydro_icon_path,
 											) 
 										),
 									)
