@@ -185,7 +185,15 @@
 						style: equipment_location_style, 
 						onEachFeature: onEachFeature,
 					});
-					var hydrological_catchment_layer = L.geoJSON(null,{style: hydrological_catchment_style, onEachFeature: onEachFeature});
+
+					var hydrological_catchment_layer = L.geoJSON(null,{
+						pointToLayer: function (feature, latlng) {
+						  return L.marker(latlng, {icon: hydroIcon});
+					    },
+						style: hydrological_catchment_style, 
+						onEachFeature: onEachFeature,
+					});
+					
 					var model_area_layer = L.geoJSON(null,{style: model_area_style, onEachFeature: onEachFeature});
 					var sampling_area_layer = L.geoJSON(null,{
 						pointToLayer: function (feature, latlng) {
