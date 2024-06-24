@@ -108,10 +108,10 @@
 					}
 				});
 				
-				var equipmentIcon = new custom_icon({iconUrl: input_data["icons"]["equipment"]}),
-					otherIcon = new custom_icon({iconUrl: input_data["icons"]["other"]})
-				        hydroIcon = new custom_icon({iconUrl: input_data["icons"]["hydro"]})
-					samplingIcon = new custom_icon({iconUrl: input_data["icons"]["sampling"]});
+				var equipmentIcon = new custom_icon({iconUrl: input_data["icons"]["equipment"]});
+				var otherIcon = new custom_icon({iconUrl: input_data["icons"]["other"]});
+				var hydroIcon = new custom_icon({iconUrl: input_data["icons"]["hydro"]});
+				var samplingIcon = new custom_icon({iconUrl: input_data["icons"]["sampling"]});
 				
 				var eshape_style = {
 					"color": eshape_colour,
