@@ -1,0 +1,7 @@
+{
+    "name": "stopopol/deims_geodata_formatter",
+    "description": "renders site geodata on DEIMS-SDR in one map",
+    "type": "drupal-module",
+    "homepage": "https://github.com/stopopol/deims_geodata_formatter"
+}
+
