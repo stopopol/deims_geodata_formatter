@@ -131,6 +131,8 @@ class DeimsGeodataFormatter extends FormatterBase {
 						$hydro_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/blue-marker-icon.png");
 						
 						// setting css class is not working
+						// this causes the drupal settings to be overwritten when the formatter is called 
+						// multiple times on the same page -> TO DO: rewrite data_object to use uuid and update JS part accordingly
 						$elements[$delta] = [
 							'#markup' => '<div id="site_record_map" class="map-height" style="height: 400px;"></div>' ,
 							'#attached' => array(
