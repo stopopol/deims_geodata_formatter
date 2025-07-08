@@ -42,6 +42,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 	  */
 	public function viewElements(FieldItemListInterface $items, $langcode) {
 		$elements = [];
+		$formatter_settings = [];
 		// Render each element as markup in case of multi-values.
 
 		foreach ($items as $delta => $item) {
@@ -122,43 +123,36 @@ class DeimsGeodataFormatter extends FormatterBase {
 					if ($coordinates != null || $boundaries != null || !empty($related_locations) || !empty($related_sites)) {
 												
 						$module_path = \Drupal::service('extension.list.module')->getPath('deims_geodata_formatter');
-						
 						$file_generator = \Drupal::service('file_url_generator');
+						
 						$equipment_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/grey-marker-icon.png");
 						$shadow_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/marker-shadow.png");
 						$sampling_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/green-marker-icon.png");
 						$other_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/brown-marker-icon.png");
 						$hydro_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/blue-marker-icon.png");
 						
-						// setting css class is not working
-						// this causes the drupal settings to be overwritten when the formatter is called 
-						// multiple times on the same page -> TO DO: rewrite data_object to use uuid and update JS part accordingly
+						$formatter_settings = [
+							'deimsid' => $record_uuid,
+							'coordinates' => $coordinates,
+							'boundaries' => $boundaries,
+							'related_locations' => $all_related_locations,
+							'related_sites' => $all_related_sites,
+							'icons' => array(
+								'equipment' => $equipment_icon_path,
+								'shadow' => $shadow_icon_path,
+								'sampling' => $sampling_icon_path,
+								'other' => $other_icon_path,
+								'hydro' => $hydro_icon_path,
+							) 
+						];
+						
+						$elements['#attached']['drupalSettings']['deims_geodata_formatter'][$record_uuid] = $formatter_settings;
+
 						$elements[$delta] = [
-							'#markup' => '<div id="site_record_map" class="map-height" style="height: 400px;"></div>' ,
-							'#attached' => array(
-								'library'=> array('deims_geodata_formatter/deims-geodata-formatter'),
-								'drupalSettings' => array(
-									'deims_geodata_formatter' => array(
-										'data_object' => array(
-											'coordinates' => $coordinates,
-											'boundaries' => $boundaries,
-											'related_locations' => $all_related_locations,
-											'related_sites' => $all_related_sites,
-											'icons' => array(
-												'equipment' => $equipment_icon_path,
-												'shadow' => $shadow_icon_path,
-												'sampling' => $sampling_icon_path,
-												'other' => $other_icon_path,
-												'hydro' => $hydro_icon_path,
-											) 
-										),
-									)
-								),
-							),
-							
+							'#markup' => "<div id='site_record_map_$record_uuid' class='map-height' style='height: 400px;'></div>",
 						]; 
 					}
-					
+			
 					else {
 						return $elements;
 					}
@@ -166,6 +160,8 @@ class DeimsGeodataFormatter extends FormatterBase {
 				}
 			}
 		}
+		
+		$elements['#attached']['library'][] = 'deims_geodata_formatter/deims-geodata-formatter';
 
 		return $elements;
 		
