@@ -435,18 +435,7 @@
                             map.addControl(new zoom_to_related_sites());
                         }
                     }
-
-                    // add fullscreen button
-                    /*
-					var fullscreenControl = L.control.fullscreen({
-						  position: 'topleft',
-						  title: 'Fullscreen',
-						  titleCancel: 'Exit fullscreen',
-					}).addTo(map); 
-					*/
-
                 });
-
             });
         }
     };
