@@ -345,7 +345,11 @@
 
                     if (coordinates) {
 
-                        var coordinates_layer = L.geoJSON(coordinates);
+                        var coordinates_layer = L.geoJSON(coordinates, {
+                            pointToLayer: function (feature, latlng) {
+                                return L.marker(latlng, { icon: siteIcon });
+                            }
+                        });
                         layerControl.addOverlay(coordinates_layer, "Centroid or Representative Coordinates");
 
                         if (!boundaries) {
