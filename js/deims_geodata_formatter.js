@@ -122,6 +122,9 @@
                     var samplingIcon = new custom_icon({
                         iconUrl: input_data["icons"]["sampling"]
                     });
+                    var siteIcon = new custom_icon({
+                        iconUrl: input_data["icons"]["site"]
+                    });
 
                     var eshape_style = {
                         "color": eshape_colour,
