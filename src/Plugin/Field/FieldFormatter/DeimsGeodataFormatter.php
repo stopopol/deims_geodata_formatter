@@ -130,6 +130,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 						$sampling_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/green-marker-icon.png");
 						$other_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/brown-marker-icon.png");
 						$hydro_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/blue-marker-icon.png");
+						$site_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/teal-marker-icon.png");
 						
 						$formatter_settings = [
 							'deimsid' => $record_uuid,
@@ -143,6 +144,7 @@ class DeimsGeodataFormatter extends FormatterBase {
 								'sampling' => $sampling_icon_path,
 								'other' => $other_icon_path,
 								'hydro' => $hydro_icon_path,
+								'site' => $site_icon_path,
 							) 
 						];
 						
