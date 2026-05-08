@@ -277,7 +277,6 @@
                                         list_of_filled_layers.push(equipment_location_layer);
                                     }
                                     equipment_location_layer.addData(geojsonFeature);
-
                                     break;
                                 case "http://vocabs.lter-europe.net/elter_cl/10492":
                                     if (map.hasLayer(hydrological_catchment_layer) == false) {
