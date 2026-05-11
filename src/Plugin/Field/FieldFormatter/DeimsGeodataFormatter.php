@@ -126,11 +126,11 @@ class DeimsGeodataFormatter extends FormatterBase {
 						$file_generator = \Drupal::service('file_url_generator');
 						
 						$equipment_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/grey-marker-icon.png");
-						$shadow_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/marker-shadow.png");
-						$sampling_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/green-marker-icon.png");
+						$sampling_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/orange-marker-icon.png");
 						$other_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/brown-marker-icon.png");
 						$hydro_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/blue-marker-icon.png");
 						$site_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/teal-marker-icon.png");
+						$shadow_icon_path = $file_generator->generateAbsoluteString("$module_path/css/images/marker-shadow.png");
 						
 						$formatter_settings = [
 							'deimsid' => $record_uuid,
