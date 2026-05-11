@@ -53,7 +53,7 @@
                     var eshape_colour = "#cc0066";
                     var hydrological_colour = "#3399FF";
                     var boundaries_colour = "#FFFFFF";
-                    var related_sites_colour = "#ff6633";
+                    var related_sites_colour = "#1D9E75";
                     var sampling_colour = "#FF7F00";
                     var airshed_colour = "#6699cc";
                     var equipment_colour = "#999999";
