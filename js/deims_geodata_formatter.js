@@ -54,7 +54,7 @@
                     var hydrological_colour = "#3399FF";
                     var boundaries_colour = "#FFFFFF";
                     var related_sites_colour = "#ff6633";
-                    var sampling_colour = "#336600";
+                    var sampling_colour = "#FF7F00";
                     var airshed_colour = "#6699cc";
                     var equipment_colour = "#999999";
                     var other_colour = "#996633";
